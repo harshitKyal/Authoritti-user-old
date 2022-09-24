@@ -1,0 +1,58 @@
+<ion-header>
+	<ion-toolbar>
+
+		<!-- menu -->
+		<ion-buttons slot="start">
+			<ion-menu-button></ion-menu-button>
+		</ion-buttons>
+
+
+		<!-- title -->
+		<ion-title>
+			{{title}}
+		</ion-title>
+
+
+		<!-- home, reset -->
+		<ion-buttons class="ion-hide-md-down" slot="end">
+
+			<!-- home -->
+			<ion-button *ngIf="showHome" (click)="eventHome.emit()">
+				<ion-icon slot="icon-only" name="home"></ion-icon>
+			</ion-button>
+
+
+			<!-- playVideo -->
+			<ion-button *ngIf="backendService.curIntroPage?.intro.show_intro_icon" (click)="playVideo()">
+				<ion-icon slot="icon-only" name="play"></ion-icon>
+			</ion-button>
+
+
+			<!-- reset -->
+			<ion-button *ngIf="showReset" (click)="event.emit()">
+				<ion-icon slot="icon-only" name="refresh"></ion-icon>
+			</ion-button>
+
+
+			<!-- save -->
+			<ion-button id="save" *ngIf="showSave" (click)="event.emit()">
+				<ion-icon slot="icon-only" name="save"></ion-icon>
+			</ion-button>
+
+		</ion-buttons>
+
+
+		<!-- more -->
+		<ion-buttons *ngIf="showMore" class="ion-hide-md-up" slot="end">
+			<ion-button shape="round" (click)="onShowMore($event)">
+				<ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
+			</ion-button>
+		</ion-buttons>
+
+
+		<ng-content>
+		</ng-content>
+
+	</ion-toolbar>
+
+</ion-header>

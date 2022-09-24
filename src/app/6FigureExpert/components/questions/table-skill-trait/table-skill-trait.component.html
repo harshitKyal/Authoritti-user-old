@@ -1,0 +1,72 @@
+<!-- skills -->
+<ion-grid>
+
+	<!-- header -->
+	<ion-row class="tableHeader">
+		<ion-col class="gQuestionTitle">Skills</ion-col>
+		<ion-col class="gQuestionTitle">Average Score</ion-col>
+		<ion-col class="gQuestionTitle">Use</ion-col>
+		<ion-col class="gQuestionTitle">Top 10</ion-col>
+	</ion-row>
+
+
+	<!-- rows -->
+	<ng-container *ngIf="question.table_skill_trait.skillRows.length">
+
+		<ion-row *ngFor="let itemRow of question.table_skill_trait.skillRows; index as i"
+			    class="ion-text-center ion-align-items-center tableRows">
+
+			<ion-col class="rowAnswer sameHeight">{{itemRow.name}}</ion-col>
+			<ion-col class="rowAnswer sameHeight">{{itemRow.score}}</ion-col>
+			<ion-col class="rowAnswer sameHeight">{{itemRow.answer}}</ion-col>
+			<ion-col>
+				<ion-item class="inputTopTen">
+					<ion-label>
+						<ion-checkbox [checked]="itemRow.is_top_ten" (ionChange)="onChange($event.detail.checked, itemRow, i, 'skill')"></ion-checkbox>
+					</ion-label>
+				</ion-item>
+			</ion-col>
+
+		</ion-row>
+
+	</ng-container>
+
+</ion-grid>
+
+
+<!-- traits -->
+<ion-grid class="traitsGrid">
+
+	<!-- header -->
+	<ion-row class="tableHeader">
+		<ion-col class="gQuestionTitle">Traits</ion-col>
+		<ion-col class="gQuestionTitle">Average Score</ion-col>
+		<ion-col class="gQuestionTitle">Use</ion-col>
+		<ion-col class="gQuestionTitle">Dominant</ion-col>
+		<ion-col class="gQuestionTitle">Top 10</ion-col>
+	</ion-row>
+
+
+	<!-- rows -->
+	<ng-container *ngIf="question.table_skill_trait.traitRows.length">
+
+		<ion-row *ngFor="let itemRow of question.table_skill_trait.traitRows; index as i"
+			    class="ion-text-center ion-align-items-center tableRows">
+
+			<ion-col class="rowAnswer sameHeight">{{itemRow.name}}</ion-col>
+			<ion-col class="rowAnswer sameHeight">{{itemRow.score}}</ion-col>
+			<ion-col class="rowAnswer sameHeight">{{itemRow.answer}}</ion-col>
+			<ion-col class="rowAnswer sameHeight">{{itemRow.answerPositive}}</ion-col>
+			<ion-col>
+				<ion-item class="inputTopTen">
+					<ion-label>
+						<ion-checkbox [checked]="itemRow.is_top_ten" (ionChange)="onChange($event.detail.checked, itemRow, i, 'trait')"></ion-checkbox>
+					</ion-label>
+				</ion-item>
+			</ion-col>
+
+		</ion-row>
+
+	</ng-container>
+
+</ion-grid>

@@ -1,0 +1,24 @@
+.passions {
+	margin-right: 2px;
+}
+.passionItem {
+	--inner-padding-end: 0;
+	--padding-start: 8px;
+
+
+	ion-label:not(:first-of-type) {
+		margin-right: 14px;
+	}
+
+
+	ion-button {
+		margin: 4px 2px;
+	}
+}
+.passionCount {
+	width: 22px;
+	max-width: 22px;
+	margin-left: 0;
+	margin-right: 20px;
+	font-size: 14px;
+}

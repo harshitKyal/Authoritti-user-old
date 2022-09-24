@@ -1,0 +1,106 @@
+<comp-header [title]="appName"
+		   [pageType]="EnumPage.QUESTIONNAIRE"
+		   [showHome]="true"
+		   [showMore]="true"
+		   [showReset]="true"
+		   (eventHome)="returnHome()"
+		   (event)="reset()">
+</comp-header>
+
+
+<ion-content>
+
+	<!-- progressBar -->
+	<ion-progress-bar [value]="progressValue"></ion-progress-bar>
+
+
+	<ion-grid class="financialGoalGrid">
+
+		<!-- title -->
+		<ion-row>
+			<ion-col class="ion-text-center">
+				<h4 class="gColorHeading gFinancialTitle">List Your Professional Skills In Chronological Order</h4>
+			</ion-col>
+		</ion-row>
+
+
+		<!-- inputs -->
+		<ion-row class="ion-align-items-center ion-margin-bottom">
+			<ion-col class=gCountGridTag size="auto">
+				<span class="gColorHeading">#</span>
+			</ion-col>
+			<ion-col>
+				<ion-item class="gAnswerTextInput gTextInput">
+					<ion-label position="floating">Year</ion-label>
+					<ion-input [(ngModel)]="inputYear" (keypress)="filterNumericInput($event)"></ion-input>
+				</ion-item>
+			</ion-col>
+			<ion-col>
+				<ion-item class="gAnswerTextInput gTextInput">
+					<ion-label position="floating">Name of Company</ion-label>
+					<ion-input [(ngModel)]="inputCompany"></ion-input>
+				</ion-item>
+			</ion-col>
+			<ion-col>
+				<ion-item class="gAnswerTextInput gTextInput">
+					<ion-label position="floating">Job Title/Role</ion-label>
+					<ion-input [(ngModel)]="inputJob"></ion-input>
+				</ion-item>
+			</ion-col>
+			<ion-col>
+				<ion-item class="gAnswerTextInput gTextInput">
+					<ion-label position="floating">Duration in Years</ion-label>
+					<ion-input [(ngModel)]="inputDuration" (keypress)="filterNumericInput($event)"></ion-input>
+				</ion-item>
+			</ion-col>
+			<ion-col size="auto">
+				<ion-button fill="clear" class="g-icon-btn" (click)="addProfession()">
+					<ion-icon slot="icon-only" name="add-outline"></ion-icon>
+				</ion-button>
+			</ion-col>
+		</ion-row>
+
+
+		<!-- products -->
+		<ion-row class="products">
+			<ion-col>
+				<ion-list>
+					<ion-item class="productItem" button *ngFor="let item of professions; index as i; trackBy: dataManager.onTrackById"
+							(click)="editProfession(i,item)">
+						<ion-label class="productCount">
+							<span class="gColorHeading">{{i + 1}}.</span>
+						</ion-label>
+						<ion-label class="ion-text-center">
+							{{item.year}}
+						</ion-label>
+						<ion-label class="ion-text-center">
+							{{item.company}}
+						</ion-label>
+						<ion-label class="ion-text-center">
+							{{item.job}}
+						</ion-label>
+						<ion-label class="ion-text-center">
+							{{item.duration}}
+						</ion-label>
+						<ion-button slot="end" fill="clear" size="small" class="g-icon-btn"
+								  (click)="editProfession(i,item); $event.stopPropagation();">
+							<ion-icon color="danger" slot="icon-only" name="pencil-outline"></ion-icon>
+						</ion-button>
+						<ion-button slot="end" fill="clear" size="small" class="g-icon-btn"
+								  (click)="removeProfession(i); $event.stopPropagation();">
+							<ion-icon color="danger" slot="icon-only" name="trash-outline"></ion-icon>
+						</ion-button>
+					</ion-item>
+				</ion-list>
+			</ion-col>
+		</ion-row>
+
+	</ion-grid>
+
+</ion-content>
+
+
+<comp-footer (eventPrevious)="onPrevious()"
+		   (eventNext)="onNext($event)"
+		   [disable]="professions.length == 0">
+</comp-footer>

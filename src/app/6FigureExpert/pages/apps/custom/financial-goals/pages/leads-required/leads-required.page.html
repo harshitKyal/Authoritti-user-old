@@ -1,0 +1,57 @@
+<comp-header [title]="appName"
+		   [pageType]="EnumPage.QUESTIONNAIRE"
+		   [showHome]="true"
+		   [showMore]="true"
+		   (eventHome)="returnHome()">
+</comp-header>
+
+
+<ion-content>
+
+	<!-- progressBar -->
+	<ion-progress-bar [value]="progressValue"></ion-progress-bar>
+
+
+	<ion-grid class="financialGoalGrid">
+
+		<!-- title -->
+		<ion-row>
+			<ion-col>
+				<h4 class="gColorHeading gFinancialTitle ion-text-center">Leads Required To Generate Annual Sales</h4>
+			</ion-col>
+		</ion-row>
+
+
+		<!-- headers -->
+		<ion-row class="ion-margin-top ion-padding-top">
+			<ion-col>
+				<h5 class="ion-no-margin gColorHeading ion-text-center">Product/Service</h5>
+			</ion-col>
+			<ion-col>
+				<h5 class="ion-no-margin gColorHeading ion-text-center">Qualified Leads Required To Hit Target Sales</h5>
+			</ion-col>
+		</ion-row>
+
+
+		<!-- body -->
+		<ion-row *ngFor="let itemProduct of financialGoal.products | keyvalue">
+			<ion-col>
+				<ion-item class="ion-text-center">
+					<ion-label>{{itemProduct.value.name}}</ion-label>
+				</ion-item>
+			</ion-col>
+			<ion-col>
+				<ion-item class="ion-text-center">
+					<ion-label>{{dataManager.numberWithCommas(itemProduct.value.leadsRequired(financialGoal.annual_goal), 2)}}</ion-label>
+				</ion-item>
+			</ion-col>
+		</ion-row>
+
+	</ion-grid>
+
+</ion-content>
+
+
+<comp-footer (eventPrevious)="onPrevious()"
+		   (eventNext)="onNext($event)">
+</comp-footer>

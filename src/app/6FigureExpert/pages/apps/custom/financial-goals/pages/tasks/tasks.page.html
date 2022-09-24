@@ -1,0 +1,58 @@
+<comp-header [title]="appName"
+		   [pageType]="EnumPage.QUESTIONNAIRE"
+		   [showHome]="true"
+		   [showMore]="true"
+		   [showReset]="true"
+		   (eventHome)="returnHome()"
+		   (event)="reset()">
+</comp-header>
+
+
+<ion-content>
+
+	<!-- progressBar -->
+	<ion-progress-bar [value]="progressValue"></ion-progress-bar>
+
+
+	<ion-grid class="financialGoalGrid">
+
+		<!-- title -->
+		<ion-row>
+			<ion-col>
+				<h4 class="gColorHeading gFinancialTitle ion-text-center">What Channel Will You Use To Generate Leads</h4>
+			</ion-col>
+		</ion-row>
+
+
+		<!-- headings -->
+		<ion-row>
+			<ion-col>
+				<p class="gColorHeading heading">Social Media</p>
+			</ion-col>
+			<ion-col>
+				<p class="gColorHeading heading">Advertising</p>
+			</ion-col>
+			<ion-col>
+				<p class="gColorHeading heading">Offline</p>
+			</ion-col>
+		</ion-row>
+
+
+		<ion-row>
+			<ion-col size="4" *ngFor="let item of tasks">
+				<ion-item *ngIf="item.id" lines="none">
+					<ion-checkbox slot="start" [value]="item.id" [checked]="financialGoal.tasks[item.id]"
+							    (ionChange)="onChange($event.detail)"></ion-checkbox>
+					<ion-label>{{item.name}}</ion-label>
+				</ion-item>
+			</ion-col>
+		</ion-row>
+
+	</ion-grid>
+
+</ion-content>
+
+
+<comp-footer (eventPrevious)="onPrevious()"
+		   (eventNext)="onNext($event)">
+</comp-footer>

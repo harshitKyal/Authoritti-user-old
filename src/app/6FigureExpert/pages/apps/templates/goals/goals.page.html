@@ -1,0 +1,156 @@
+<comp-header [title]="appName"
+		   [pageType]="EnumPage.QUESTIONNAIRE"
+		   [showHome]="true"
+		   [showMore]="true"
+		   (eventHome)="returnHome()"
+		   (event)="reset()">
+</comp-header>
+
+
+<ion-content>
+
+	<!-- progressBar -->
+	<ion-progress-bar [value]="progressValue"></ion-progress-bar>
+
+
+	<!-- title -->
+	<div class="mainTitle">
+		<span>What I Know For Sure</span>
+		<ion-button class="help" fill="clear" shape="round" (click)="help()">
+			<ion-icon name="help-circle-outline" slot="icon-only"></ion-icon>
+		</ion-button>
+	</div>
+
+
+	<ion-grid>
+		<ion-row>
+
+			<!-- goals -->
+			<ion-col sizeMd="6">
+				<ion-card class="subCard">
+
+					<!-- header -->
+					<ion-card-header class="subCardHeader">
+
+						<div>
+							<ion-card-title>Goals</ion-card-title>
+							<p>Total: {{goals.length}}</p>
+						</div>
+
+
+						<!-- add -->
+						<ion-button id="step1" fill="clear" class="gBtnAdd" (click)="showModalGoal()">
+							<ion-icon slot="icon-only" name="add"></ion-icon>
+						</ion-button>
+					</ion-card-header>
+
+
+					<!-- list -->
+					<ion-card-content id="step2" class="cardContent">
+						<ion-list>
+							<ion-item button *ngFor="let itemGoal of goals; index as i; trackBy: dataManager.onTrackByIdd"
+									(click)="selectModule(itemGoal)" class="listItemSolution" [ngClass]="{'highlight': selectedGoal?.id == itemGoal.id}">
+
+								<!-- count -->
+								<div slot="start" class="itemCount gColorHeading">{{i + 1}}.</div>
+
+
+								<!-- name, description -->
+								<ion-label>
+									<p class="itemTitle gBlack">{{itemGoal.name}}</p>
+									<p>{{itemGoal.description}}</p>
+								</ion-label>
+
+
+								<!-- edit -->
+								<ion-button slot="end" fill="clear" class="gListItemEdit"
+										  (click)="showModalGoal(itemGoal); $event.stopPropagation();">
+									<ion-icon name="create" slot="icon-only"></ion-icon>
+								</ion-button>
+
+
+								<!-- delete -->
+								<ion-button slot="end" fill="clear" color="danger" class="gListItemDelete"
+										  (click)="deleteGoal(itemGoal.id, i); $event.stopPropagation();">
+									<ion-icon name="trash" slot="icon-only"></ion-icon>
+								</ion-button>
+							</ion-item>
+						</ion-list>
+					</ion-card-content>
+
+				</ion-card>
+			</ion-col>
+
+
+			<!-- outcomes & deliverables -->
+			<ion-col sizeMd="6">
+				<ion-card class="subCard">
+
+					<!-- header -->
+					<ion-card-header class="subCardHeader">
+
+						<div>
+							<ion-card-title>OutCome & Deliverables</ion-card-title>
+							<p>Total: {{selectedGoal ? selectedGoal.steps.length : 0}}</p>
+						</div>
+
+
+						<!-- add -->
+						<ion-button id="step3" *ngIf="selectedGoal" fill="clear" class="gBtnAdd" (click)="showModalStep()">
+							<ion-icon slot="icon-only" name="add"></ion-icon>
+						</ion-button>
+					</ion-card-header>
+
+
+					<!-- list -->
+					<ion-card-content class="cardContent">
+
+						<ion-list class="listSteps" *ngIf="selectedGoal">
+							<ion-item *ngFor="let itemStep of selectedGoal.steps; index as i; trackBy: dataManager.onTrackByIdd"
+									class="listItemSolution listItemStep" [ngClass]="{'highlightOutcome': itemStep.type == 'outcome'}">
+
+								<!-- count -->
+								<div slot="start" class="itemCount gColorHeading">{{i + 1}}.</div>
+
+
+								<!-- name, description -->
+								<ion-label>
+									<p class="itemTitle gBlack">{{itemStep.name}}</p>
+									<p>{{itemStep.description}}</p>
+								</ion-label>
+
+
+								<!-- edit -->
+								<ion-button slot="end" fill="clear" class="gListItemEdit"
+										  (click)="showModalStep(itemStep)">
+									<ion-icon name="create" slot="icon-only"></ion-icon>
+								</ion-button>
+
+
+								<!-- delete -->
+								<ion-button slot="end" fill="clear" color="danger" class="gListItemDelete"
+										  (click)="deleteStep(i)">
+									<ion-icon name="trash" slot="icon-only"></ion-icon>
+								</ion-button>
+							</ion-item>
+						</ion-list>
+
+
+						<div *ngIf="selectedGoal" class="colorInfo">
+							<p><span></span>Deliverable</p>
+							<p><span></span>Outcome</p>
+						</div>
+
+					</ion-card-content>
+
+				</ion-card>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+
+</ion-content>
+
+
+<comp-footer (eventPrevious)="onPrevious()"
+		   (eventNext)="onNext($event)">
+</comp-footer>

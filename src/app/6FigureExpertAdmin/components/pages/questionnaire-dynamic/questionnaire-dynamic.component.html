@@ -1,0 +1,51 @@
+<form [formGroup]="formAddEdit">
+
+	<!-- title -->
+	<ion-item class="gInput">
+		<ion-label position="floating">Title *</ion-label>
+		<ion-textarea rows="2" [formControlName]="EnumField.TITLE"></ion-textarea>
+	</ion-item>
+
+
+	<!-- description -->
+	<ion-item class="gInput">
+		<ion-label position="floating">Description</ion-label>
+		<ion-textarea rows="5" [formControlName]="EnumField.DESCRIPTION"></ion-textarea>
+	</ion-item>
+
+
+	<!-- group -->
+	<div class="inputGroup">
+
+		<!-- input -->
+		<div class="gInput">
+			<ion-item>
+				<ion-label position="floating">Group</ion-label>
+				<ion-select #inputGroup [formControlName]="EnumField.GROUP_ID" interface="popover" placeholder="Select Group">
+					<ion-select-option *ngFor="let itemGroup of backendService.groups" [value]="itemGroup.auid">
+						{{itemGroup.name}}
+					</ion-select-option>
+				</ion-select>
+			</ion-item>
+
+
+			<p class="inputGroupError"
+			   *ngIf="inputGroup.value && !backendService.groupsHash[inputGroup.value]">
+				Group Error
+			</p>
+		</div>
+
+
+		<!-- removeGroup -->
+		<ion-button color="danger" fill="clear" (click)="formAddEdit.patchValue({group_id: null})">
+			<ion-icon name="remove-circle-outline"></ion-icon>
+		</ion-button>
+	</div>
+
+</form>
+
+
+<!-- save -->
+<div class="gBtnSave">
+	<ion-button [disabled]="formAddEdit.invalid" (click)="onSubmit(formAddEdit.value)">Save</ion-button>
+</div>

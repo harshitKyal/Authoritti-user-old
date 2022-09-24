@@ -1,0 +1,34 @@
+<form [formGroup]="formAddEdit">
+
+	<!-- title -->
+	<ion-item class="gInput">
+		<ion-label position="floating">Title *</ion-label>
+		<ion-textarea rows="2" [formControlName]="EnumField.TITLE"></ion-textarea>
+	</ion-item>
+
+
+	<!-- description -->
+	<ion-item class="gInput">
+		<ion-label position="floating">Description</ion-label>
+		<ion-textarea rows="5" [formControlName]="EnumField.DESCRIPTION"></ion-textarea>
+	</ion-item>
+
+
+	<!-- textArea -->
+	<div [formGroupName]="EnumField.TEXT_AREA">
+
+		<!-- placeholder -->
+		<ion-item class="gInput">
+			<ion-label position="floating">Placeholder/Hint</ion-label>
+			<ion-input [formControlName]="EnumField.PLACEHOLDER"></ion-input>
+		</ion-item>
+
+	</div>
+
+</form>
+
+
+<!-- save -->
+<div class="gBtnSave">
+	<ion-button [disabled]="formAddEdit.invalid" (click)="onSubmit(formAddEdit.value)">Save</ion-button>
+</div>

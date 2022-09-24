@@ -1,0 +1,32 @@
+.gQuestionTitle {
+	text-align: center;
+	margin: 48px 0 24px 0 !important;
+}
+ion-row {
+	justify-content: center;
+	align-items: center;
+}
+ion-grid,
+ion-col {
+	padding-left: 0;
+}
+
+
+ion-item {
+	font-size: 14px;
+
+
+	ion-radio {
+		margin-right: 12px;
+	}
+
+
+	ion-label {
+		width: 150px;
+		white-space: normal;
+	}
+}
+.btnEmotion {
+	text-align: center;
+	margin: 16px 0;
+}

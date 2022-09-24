@@ -1,0 +1,77 @@
+<form [formGroup]="formAddEdit">
+
+	<!-- source -->
+	<ion-item class="gInput">
+		<ion-label position="floating">Source *</ion-label>
+		<ion-select [formControlName]="EnumField.SOURCE" interface="popover" placeholder="Select Type">
+			<ion-select-option [value]="EnumSource.SLIDER">{{EnumSource.SLIDER | snakeToTitleCase}}</ion-select-option>
+		</ion-select>
+	</ion-item>
+
+
+	<!-- tableTrait -->
+	<div [formGroupName]="EnumField.TABLE_TRAIT">
+
+		<!-- id -->
+		<ion-item class="gInput">
+			<ion-label position="floating">Data Id *</ion-label>
+			<ion-input [formControlName]="EnumField.ID"></ion-input>
+		</ion-item>
+
+	</div>
+
+
+	<!-- columns -->
+	<div>
+		<ion-item class="gInput">
+			<ion-label position="floating">Columns</ion-label>
+			<ion-input [ngModelOptions]="{standalone: true}" placeholder="Type and press enter" ngModel #inputColumn="ngModel"
+					 (keyup.enter)="onAddOption(inputColumn.value, EnumField.COLUMNS); inputColumn.reset();"></ion-input>
+		</ion-item>
+
+
+		<ion-grid>
+			<ion-row>
+				<ion-col size="auto" *ngFor="let item of columns; index as i; trackBy: dataManager.onTrackById;">
+
+					<ion-chip (click)="onRemoveOption(i, EnumField.COLUMNS)">
+						<ion-label>{{item.name}}</ion-label>
+						<ion-icon name="close-circle"></ion-icon>
+					</ion-chip>
+
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</div>
+
+
+	<!-- options -->
+	<div>
+		<ion-item class="gInput">
+			<ion-label position="floating">Values</ion-label>
+			<ion-input [ngModelOptions]="{standalone: true}" placeholder="Type and press enter" ngModel #inputOption="ngModel"
+					 (keyup.enter)="onAddOption(inputOption.value, EnumField.OPTIONS); inputOption.reset();"></ion-input>
+		</ion-item>
+
+
+		<ion-grid>
+			<ion-row>
+				<ion-col size="auto" *ngFor="let item of options; index as i; trackBy: dataManager.onTrackById;">
+
+					<ion-chip (click)="onRemoveOption(i, EnumField.OPTIONS)">
+						<ion-label>{{item.name}}</ion-label>
+						<ion-icon name="close-circle"></ion-icon>
+					</ion-chip>
+
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</div>
+
+</form>
+
+
+<!-- save -->
+<div class="gBtnSave">
+	<ion-button [disabled]="formAddEdit.invalid || !columns.length || !options.length" (click)="onSubmit(formAddEdit.value)">Save</ion-button>
+</div>

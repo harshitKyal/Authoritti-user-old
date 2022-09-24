@@ -1,0 +1,65 @@
+.gQuestionTitle {
+	text-align: center;
+	margin: 0 !important;
+	color: white;
+}
+.rowAnswer {
+	font-size: 16px;
+	color: black !important;
+}
+.sameHeight {
+	padding: 18px 5px;
+}
+.tableHeader {
+	background-color: #EF5EA7;
+	color: white;
+
+
+	ion-col {
+		padding: 18px 5px;
+		font-size: 20px !important;
+	}
+}
+.tableRows:nth-child(even) {
+	background: #F8D1E0;
+}
+.tableRows:nth-child(odd) {
+	background: #FBE9F0;
+}
+.tableRows ion-col:first-child {
+	background-color: #EF5EA7;
+	color: white !important;
+}
+.tableRows {
+	border-top: white solid 1px;
+}
+.tableRows ion-col:not(:last-child) {
+	border-right: white solid 1px;
+}
+.tableRows ion-item {
+	--background: transparent;
+	--ripple-color: var(--backgroundRed);
+}
+.inputTopTen {
+	--border-style: none;
+
+
+	ion-label {
+		text-align: center;
+		margin: 0;
+	}
+
+
+	ion-checkbox {
+		margin: 0;
+		display: inline-block;
+		vertical-align: middle;
+	}
+}
+
+
+
+
+.traitsGrid {
+	margin-top: 48px;
+}

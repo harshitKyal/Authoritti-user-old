@@ -1,0 +1,109 @@
+<comp-header [title]="appName"
+		   [pageType]="EnumPage.QUESTIONNAIRE"
+		   [showHome]="true"
+		   [showMore]="true"
+		   [showReset]="true"
+		   (eventHome)="returnHome()"
+		   (event)="reset()">
+</comp-header>
+
+
+<ion-content>
+
+	<!-- progressBar -->
+	<ion-progress-bar [value]="progressValue"></ion-progress-bar>
+
+
+	<ion-grid class="financialGoalGrid">
+
+		<!-- title -->
+		<ion-row>
+			<ion-col class="ion-text-center">
+				<h4 class="gColorHeading gFinancialTitle">Average Sales Price Per Product/Service</h4>
+			</ion-col>
+		</ion-row>
+
+
+		<!-- inputs -->
+		<ion-row class="ion-align-items-center ion-margin-bottom">
+			<ion-col class=gCountGridTag size="auto">
+				<span class="gColorHeading">#</span>
+			</ion-col>
+			<ion-col>
+				<ion-item class="gAnswerTextInput gTextInput">
+					<ion-label position="floating">Product/Service</ion-label>
+					<ion-input [(ngModel)]="inputName"></ion-input>
+				</ion-item>
+			</ion-col>
+			<ion-col>
+				<ion-item class="gAnswerTextInput gTextInput">
+					<ion-label position="floating">Dollar value per Item</ion-label>
+					<ion-input [(ngModel)]="inputDollarValue" (keypress)="filterNumericInput($event)"></ion-input>
+				</ion-item>
+			</ion-col>
+			<ion-col>
+				<ion-item class="gAnswerTextInput gTextInput">
+					<ion-label position="floating">Total % of Sales</ion-label>
+					<ion-input [(ngModel)]="inputSaleValue" (keypress)="filterNumericInput($event)"></ion-input>
+				</ion-item>
+			</ion-col>
+			<ion-col size="auto">
+				<ion-button fill="clear" class="g-icon-btn" (click)="addProduct()">
+					<ion-icon slot="icon-only" name="add-outline"></ion-icon>
+				</ion-button>
+			</ion-col>
+		</ion-row>
+
+
+		<!-- products -->
+		<ion-row class="products">
+			<ion-col>
+				<ion-list>
+					<ion-item class="productItem" button *ngFor="let itemProduct of financialGoal.products | keyvalue; index as i; trackBy: dataManager.onTrackByIndex"
+							(click)="editProduct(itemProduct.key, itemProduct.value)">
+						<ion-label class="productCount">
+							<span class="gColorHeading">{{i + 1}}.</span>
+						</ion-label>
+						<ion-label class="ion-text-center">
+							{{itemProduct.value.name}}
+						</ion-label>
+						<ion-label class="ion-text-center">
+							${{dataManager.numberWithCommas(itemProduct.value.dollarValue, 2)}}
+						</ion-label>
+						<ion-label class="ion-text-center">
+							{{itemProduct.value.saleValue}}%
+						</ion-label>
+						<ion-button slot="end" fill="clear" size="small" class="g-icon-btn"
+								  (click)="editProduct(itemProduct.key, itemProduct.value); $event.stopPropagation();">
+							<ion-icon color="danger" slot="icon-only" name="pencil-outline"></ion-icon>
+						</ion-button>
+						<ion-button slot="end" fill="clear" size="small" class="g-icon-btn"
+								  (click)="removeProduct(itemProduct.key); $event.stopPropagation();">
+							<ion-icon color="danger" slot="icon-only" name="trash-outline"></ion-icon>
+						</ion-button>
+					</ion-item>
+				</ion-list>
+			</ion-col>
+		</ion-row>
+
+
+		<!-- total -->
+		<ion-row class="totalSale">
+			<ion-col size="auto">
+				<h4>Total: {{financialGoal.TotalSales}}%</h4>
+				<ion-note class="ion-no-margin" [color]="financialGoal.TotalSales == 100
+				? 'success'
+				: financialGoal.TotalSales > 100 ? 'danger' : 'dark'">(Sales Total must be 100%)
+				</ion-note>
+			</ion-col>
+		</ion-row>
+
+	</ion-grid>
+
+</ion-content>
+
+
+<comp-footer (eventPrevious)="onPrevious()"
+		   (eventNext)="onNext($event)"
+		   [disable]="financialGoal.TotalSales != 100">
+</comp-footer>

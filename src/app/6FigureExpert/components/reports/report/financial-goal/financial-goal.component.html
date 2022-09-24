@@ -1,0 +1,49 @@
+<ion-grid class="gReportGrid">
+
+	<!-- title -->
+	<ion-row class="gReportTitle">
+		<ion-col>{{title}}</ion-col>
+	</ion-row>
+
+
+	<!-- report -->
+	<ng-container *ngFor="let itemReport of report.items">
+
+		<!-- type -->
+		<ion-row class="reportType">
+			<ion-item-divider class="reportGroupHeader" color="light">
+				<ion-label>{{itemReport.key}}</ion-label>
+			</ion-item-divider>
+		</ion-row>
+
+
+		<!-- headers -->
+		<ion-row>
+			<ion-col><h5 class="ion-no-margin gColorHeading ion-text-center">Product/Service</h5></ion-col>
+			<ion-col><h5 class="ion-no-margin gColorHeading ion-text-center">Dollar Value</h5></ion-col>
+			<ion-col><h5 class="ion-no-margin gColorHeading ion-text-center">Total Sales</h5></ion-col>
+			<ion-col><h5 class="ion-no-margin gColorHeading ion-text-center">Generated Sales</h5></ion-col>
+			<ion-col><h5 class="ion-no-margin gColorHeading ion-text-center">Close Rate</h5></ion-col>
+			<ion-col><h5 class="ion-no-margin gColorHeading ion-text-center">Sales Required</h5></ion-col>
+			<ion-col><h5 class="ion-no-margin gColorHeading ion-text-center">Qualified Leads Required</h5></ion-col>
+		</ion-row>
+
+
+		<!-- body -->
+		<ion-row *ngFor="let item of itemReport.value">
+			<ion-col>
+				<ion-item class="ion-no-padding" style="--inner-padding-end: 0;">
+					<ion-label class="ion-text-center">{{item.name}}</ion-label>
+					<ion-label class="ion-text-center">{{item.dollarValue}}</ion-label>
+					<ion-label class="ion-text-center">{{item.saleValue}}</ion-label>
+					<ion-label class="ion-text-center">{{item.generatedSales}}</ion-label>
+					<ion-label class="ion-text-center">{{item.closeRate}}</ion-label>
+					<ion-label class="ion-text-center">{{item.salesRequired}}</ion-label>
+					<ion-label class="ion-text-center">{{item.leadsRequired}}</ion-label>
+				</ion-item>
+			</ion-col>
+		</ion-row>
+
+	</ng-container>
+
+</ion-grid>

@@ -1,0 +1,39 @@
+<ion-grid *ngIf="question.table_yes_no.rows.length">
+
+	<!-- header -->
+	<ion-row>
+		<ion-col class="gQuestionTitle">Name</ion-col>
+		<ion-col class="gQuestionTitle">Score</ion-col>
+		<ion-col class="gQuestionTitle">Score Name</ion-col>
+		<ion-col class="gQuestionTitle">{{question.table_yes_no.yes_label}}</ion-col>
+		<ion-col class="gQuestionTitle">{{question.table_yes_no.no_label}}</ion-col>
+	</ion-row>
+
+
+	<!-- rows -->
+	<ion-radio-group *ngFor="let itemRow of question.table_yes_no.rows; index as i"
+				  [value]="itemRow.radio.answers[EnumField.AUID]"
+				  (ionChange)="onChange($event.detail.value, i)">
+
+		<ion-row class="ion-text-center ion-align-items-center">
+
+			<ion-col class="rowAnswer">{{itemRow.name}}</ion-col>
+			<ion-col class="rowAnswer">{{itemRow.score}}</ion-col>
+			<ion-col class="rowAnswer">{{itemRow.scoreName}}</ion-col>
+
+
+			<!-- radio -->
+			<ion-col *ngFor="let itemOption of itemRow.radio.options; trackBy: dataManager.onTrackById;">
+
+				<ion-item lines="none">
+					<ion-label class="ion-text-center">
+						<ion-radio [value]="itemOption.auid"></ion-radio>
+					</ion-label>
+				</ion-item>
+
+			</ion-col>
+		</ion-row>
+
+	</ion-radio-group>
+
+</ion-grid>

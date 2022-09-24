@@ -1,0 +1,27 @@
+.egotisticalHeader {
+	padding: 8px 0;
+}
+.egotistical {
+	text-align: center;
+	margin-bottom: 16px;
+
+
+	span {
+		margin: 8px;
+		display: block;
+	}
+
+
+	span:last-child {
+		font-weight: bold;
+	}
+}
+.egotisticalMobile {
+	display: flex;
+
+
+	span {
+		margin: 0 8px;
+		flex-basis: 50%;
+	}
+}

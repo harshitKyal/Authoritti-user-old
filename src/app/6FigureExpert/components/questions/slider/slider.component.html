@@ -1,0 +1,67 @@
+<!-- count -->
+<div>
+	<span class="gCount"><ng-content></ng-content></span>
+</div>
+
+
+<!-- title -->
+<p class="gQuestionTitle">
+	{{question.title}}
+</p>
+
+
+<!-- description -->
+<p class="gQuestionDescription" *ngIf="question.description">
+	{{question.description}}
+</p>
+
+
+<!-- values -->
+<div *ngIf="showValues" class="sliderValues" [ngClass]="{
+		'sliderValues_0_10': question.slider.max_value == 10,
+		'sliderValues_multi_0_9': questionnaire.multi_column_layout && showSnaps,
+		'sliderValues_multi_0_100': questionnaire.multi_column_layout && question.slider.max_value == 100
+	}">
+	<ion-note *ngFor="let value of values">{{value}}</ion-note>
+</div>
+
+
+<!-- item -->
+<ion-item lines="none">
+	<ion-range [(ngModel)]="question.slider.answer" [min]="question.slider.min_value" [max]="question.slider.max_value"
+			 pin="true" [snaps]="showSnaps">
+	</ion-range>
+</ion-item>
+
+
+<!-- tags -->
+<div *ngIf="question.slider.tags.length" class="sliderTags">
+	<ion-note *ngFor="let itemTag of question.slider.tags">{{itemTag | uppercase}}</ion-note>
+</div>
+
+
+<div class="bottomInfo">
+
+	<!-- minLabel, minValue -->
+	<div class="gMinMaxLabel">
+		<span *ngIf="question.slider.min_value_label">{{question.slider.min_value_label}}</span>
+	</div>
+
+
+	<!-- tags/answer -->
+	<!--<ng-container *ngIf="question.slider.tags.length; then AnswerTag else JustAnswer"></ng-container>-->
+
+	<!--<ng-template #AnswerTag><p class="answer">{{question.slider.tags[question.slider.answer - question.slider.min_value] || question.slider.answer}}</p></ng-template>-->
+	<!--<ng-template #JustAnswer><p class="answer">{{question.slider.answer}}</p></ng-template>-->
+
+
+	<!-- answer -->
+	<p *ngIf="!showSnaps" class="answer">{{question.slider.answer}}</p>
+
+
+	<!-- maxLabel, maxValue -->
+	<div class="gMinMaxLabel">
+		<span *ngIf="question.slider.max_value_label">{{question.slider.max_value_label}}</span>
+	</div>
+
+</div>

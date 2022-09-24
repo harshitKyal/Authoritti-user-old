@@ -1,0 +1,155 @@
+<ion-content>
+
+	<div class="loginMain">
+
+		<!-- logo -->
+		<div class="logo">
+			<img [src]="backendServiceMy.blackTheme ? logoWhite : logo" alt="">
+		</div>
+
+
+		<!-- login -->
+		<ion-card *ngIf="showLogin" class="loginCard">
+
+			<ion-card-header class="loginCardHeader">
+				<ion-card-title>{{title}}</ion-card-title>
+			</ion-card-header>
+
+
+			<ion-card-content>
+
+				<ion-grid>
+
+					<!-- email -->
+					<ion-row>
+						<ion-col>
+							<ion-item class="gAnswerTextInput gTextInput">
+								<ion-label position="floating">Email</ion-label>
+								<ion-input [(ngModel)]="username" required (keyup.enter)="onLogin()"></ion-input>
+							</ion-item>
+						</ion-col>
+					</ion-row>
+
+
+					<!-- password -->
+					<ion-row>
+						<ion-col>
+							<ion-item class="gAnswerTextInput gTextInput">
+								<ion-label position="floating">Password</ion-label>
+								<ion-input type="password" [(ngModel)]="password" required (keyup.enter)="onLogin()"></ion-input>
+							</ion-item>
+						</ion-col>
+					</ion-row>
+
+
+					<!-- rememberMe -->
+					<ion-row *ngIf="showRememberMe" class="ion-justify-content-between ion-align-items-center">
+						<ion-col size="auto">
+							<div class="forgot-password" (click)="forgotPassword()">
+								Forgot Password?
+							</div>
+						</ion-col>
+						<ion-col size="auto">
+							<ion-item class="rememberMe">
+								<ion-checkbox [(ngModel)]="rememberMe"></ion-checkbox>
+								<ion-label>Remember Me</ion-label>
+							</ion-item>
+						</ion-col>
+					</ion-row>
+
+
+					<!-- login -->
+					<ion-row class="login">
+						<ion-col>
+							<ion-button class="btnLogin" [disabled]="disableLogin" (click)="onLogin()">Login</ion-button>
+						</ion-col>
+					</ion-row>
+
+				</ion-grid>
+
+			</ion-card-content>
+
+
+			<!-- signUp -->
+			<div *ngIf="showSignUp" class="loginSignUp" (click)="reset()">
+				Don't have an account? <span>SignUp</span>
+			</div>
+
+		</ion-card>
+
+
+		<!-- signUp -->
+		<ion-card *ngIf="!showLogin" class="loginCard">
+
+			<ion-card-header class="loginCardHeader">
+				<ion-card-title>Sign Up</ion-card-title>
+			</ion-card-header>
+
+
+			<ion-card-content>
+
+				<ion-grid>
+
+					<!-- name -->
+					<ion-row>
+						<ion-col>
+							<ion-item class="gAnswerTextInput gTextInput">
+								<ion-label position="floating">Name</ion-label>
+								<ion-input [(ngModel)]="name" required></ion-input>
+							</ion-item>
+						</ion-col>
+					</ion-row>
+
+
+					<!-- email -->
+					<ion-row>
+						<ion-col>
+							<ion-item class="gAnswerTextInput gTextInput">
+								<ion-label position="floating">Email</ion-label>
+								<ion-input [(ngModel)]="username" required></ion-input>
+							</ion-item>
+						</ion-col>
+					</ion-row>
+
+
+					<!-- password -->
+					<ion-row>
+						<ion-col>
+							<ion-item class="gAnswerTextInput gTextInput">
+								<ion-label position="floating">Password</ion-label>
+								<ion-input [type]="inputIcon.name=='eye'? 'text':'password'" [(ngModel)]="password" required></ion-input>
+
+
+								<div slot="end" class="ion-activatable rippleParent">
+									<ion-icon name="eye-off" class="passwordIcon" #inputIcon
+											(click)="inputIcon.name=(inputIcon.name == 'eye' ? 'eye-off':'eye')">
+									</ion-icon>
+									<ion-ripple-effect></ion-ripple-effect>
+								</div>
+							</ion-item>
+						</ion-col>
+					</ion-row>
+
+
+					<!-- login -->
+					<ion-row class="login signUp">
+						<ion-col>
+							<ion-button class="btnLogin" (click)="createAccount()">Sign Up</ion-button>
+						</ion-col>
+					</ion-row>
+
+				</ion-grid>
+
+			</ion-card-content>
+
+
+			<!-- signUp -->
+			<div class="loginSignUp" (click)="reset()">
+				Already have an account? <span>Login</span>
+			</div>
+
+		</ion-card>
+
+	</div>
+
+</ion-content>

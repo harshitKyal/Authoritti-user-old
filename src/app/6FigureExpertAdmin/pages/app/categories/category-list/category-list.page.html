@@ -1,0 +1,70 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-menu-button></ion-menu-button>
+		</ion-buttons>
+
+
+		<ion-title>{{backendService.currentApp.title}}</ion-title>
+
+
+		<ion-buttons slot="end">
+			<!-- add -->
+			<ion-button (click)="navController.forwardWithUrl(EnumRoute.CATEGORY_ADD, {skipUrlCount: 1})">
+				<ion-icon name="add" slot="icon-only"></ion-icon>
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+	<ion-card class="gCardAdmin">
+
+		<!-- header -->
+		<ion-card-header class="g-card-header">
+			<ion-card-title class="g-card-header-title">Categories</ion-card-title>
+		</ion-card-header>
+
+
+		<!-- content -->
+		<ion-card-content *ngIf="backendService.categories.length;">
+
+			<ion-list>
+
+				<ion-item button class="gListItem" *ngFor="let itemCategory of backendService.categories; trackBy: dataManager.onTrackById; index as i;"
+						(click)="navController.forwardWithUrl(EnumRoute.CATEGORY_EDIT, {id: itemCategory.auid, skipUrlCount: 1})">
+
+					<!-- count -->
+					<span slot="start" class="gListItemCount">{{i + 1}}.</span>
+
+
+					<!-- title, description -->
+					<ion-label class="gListItemTitle">
+						{{itemCategory.title}}
+						<p class="gListItemDescription">{{itemCategory.description}}</p>
+					</ion-label>
+
+
+					<!-- edit -->
+					<ion-button slot="end" fill="clear" class="gListItemEdit"
+							  (click)="navController.forwardWithUrl(EnumRoute.CATEGORY_EDIT, {id: itemCategory.auid, skipUrlCount: 1}); $event.stopPropagation();">
+						<ion-icon name="create" slot="icon-only"></ion-icon>
+					</ion-button>
+
+
+					<!-- delete -->
+					<ion-button slot="end" color="danger" fill="clear" class="gListItemDelete" (click)="deleteItem(itemCategory); $event.stopPropagation();">
+						<ion-icon name="trash" slot="icon-only"></ion-icon>
+					</ion-button>
+
+				</ion-item>
+
+			</ion-list>
+
+		</ion-card-content>
+
+	</ion-card>
+
+</ion-content>

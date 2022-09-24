@@ -1,0 +1,30 @@
+<comp-header [title]="appName"
+		   [pageType]="EnumPage.SECTION"
+		   [showHome]="true"
+		   (eventHome)="returnHome()">
+</comp-header>
+
+
+<ion-content>
+
+	<!-- progressBar -->
+	<ion-progress-bar [value]="progressValue"></ion-progress-bar>
+
+
+	<div class="section-page">
+
+		<!-- logo -->
+		<img [src]="backendService.blackTheme? white : black" alt="">
+
+
+		<!-- title -->
+		<h4 class="section-title">{{page.section.title}}</h4>
+
+	</div>
+
+</ion-content>
+
+
+<comp-footer (eventPrevious)="onPrevious()"
+		   (eventNext)="onNext($event)">
+</comp-footer>

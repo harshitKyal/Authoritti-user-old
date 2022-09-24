@@ -1,0 +1,42 @@
+<!-- count -->
+<div>
+	<span class="gCount"><ng-content></ng-content></span>
+</div>
+
+
+<!-- title -->
+<p class="gQuestionTitle">
+	{{question.title}}
+</p>
+
+
+<!-- description -->
+<p class="gQuestionDescription" *ngIf="question.description">
+	{{question.description}}
+</p>
+
+
+<ng-container *ngFor="let item of question.multi_text_input.inputs; index as i">
+
+	<ion-item class="gInput gAnswerTextInput">
+
+		<!-- placeholder -->
+		<ion-label position="floating" *ngIf="item.input.placeholder; else AnswerCount">
+			{{item.input.placeholder}}
+		</ion-label>
+
+
+		<!-- answer-count  -->
+		<ng-template #AnswerCount>
+			<ion-label position="floating">
+				Answer {{question.multi_text_input.inputs.length > 1 ? i + 1 : ''}}
+			</ion-label>
+		</ng-template>
+
+
+		<!-- input -->
+		<ion-input [(ngModel)]="item.input.answer"></ion-input>
+
+	</ion-item>
+
+</ng-container>

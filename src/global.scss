@@ -1,0 +1,888 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+
+/*
+ * Dark Colors
+ * -------------------------------------------
+ */
+body.dark {
+	--ion-color-primary: #428cff;
+	--ion-color-primary-rgb: 66, 140, 255;
+	--ion-color-primary-contrast: #ffffff;
+	--ion-color-primary-contrast-rgb: 255, 255, 255;
+	--ion-color-primary-shade: #3a7be0;
+	--ion-color-primary-tint: #5598ff;
+
+	--ion-color-secondary: #50c8ff;
+	--ion-color-secondary-rgb: 80, 200, 255;
+	--ion-color-secondary-contrast: #ffffff;
+	--ion-color-secondary-contrast-rgb: 255, 255, 255;
+	--ion-color-secondary-shade: #46b0e0;
+	--ion-color-secondary-tint: #62ceff;
+
+	--ion-color-tertiary: #6a64ff;
+	--ion-color-tertiary-rgb: 106, 100, 255;
+	--ion-color-tertiary-contrast: #ffffff;
+	--ion-color-tertiary-contrast-rgb: 255, 255, 255;
+	--ion-color-tertiary-shade: #5d58e0;
+	--ion-color-tertiary-tint: #7974ff;
+
+	--ion-color-success: #2fdf75;
+	--ion-color-success-rgb: 47, 223, 117;
+	--ion-color-success-contrast: #000000;
+	--ion-color-success-contrast-rgb: 0, 0, 0;
+	--ion-color-success-shade: #29c467;
+	--ion-color-success-tint: #44e283;
+
+	--ion-color-warning: #ffd534;
+	--ion-color-warning-rgb: 255, 213, 52;
+	--ion-color-warning-contrast: #000000;
+	--ion-color-warning-contrast-rgb: 0, 0, 0;
+	--ion-color-warning-shade: #e0bb2e;
+	--ion-color-warning-tint: #ffd948;
+
+	--ion-color-danger: #ff4961;
+	--ion-color-danger-rgb: 255, 73, 97;
+	--ion-color-danger-contrast: #ffffff;
+	--ion-color-danger-contrast-rgb: 255, 255, 255;
+	--ion-color-danger-shade: #e04055;
+	--ion-color-danger-tint: #ff5b71;
+
+	--ion-color-dark: #f4f5f8;
+	--ion-color-dark-rgb: 244, 245, 248;
+	--ion-color-dark-contrast: #000000;
+	--ion-color-dark-contrast-rgb: 0, 0, 0;
+	--ion-color-dark-shade: #d7d8da;
+	--ion-color-dark-tint: #f5f6f9;
+
+	--ion-color-medium: #989aa2;
+	--ion-color-medium-rgb: 152, 154, 162;
+	--ion-color-medium-contrast: #000000;
+	--ion-color-medium-contrast-rgb: 0, 0, 0;
+	--ion-color-medium-shade: #86888f;
+	--ion-color-medium-tint: #a2a4ab;
+
+	--ion-color-light: #222428;
+	--ion-color-light-rgb: 34, 36, 40;
+	--ion-color-light-contrast: #ffffff;
+	--ion-color-light-contrast-rgb: 255, 255, 255;
+	--ion-color-light-shade: #1e2023;
+	--ion-color-light-tint: #383a3e;
+}
+
+
+
+/*
+ * iOS Dark Theme
+ * -------------------------------------------
+ */
+.ios body.dark {
+	--ion-background-color: #000000;
+	--ion-background-color-rgb: 0, 0, 0;
+
+	--ion-text-color: #ffffff;
+	--ion-text-color-rgb: 255, 255, 255;
+
+	--ion-color-step-50: #0d0d0d;
+	--ion-color-step-100: #1a1a1a;
+	--ion-color-step-150: #262626;
+	--ion-color-step-200: #333333;
+	--ion-color-step-250: #404040;
+	--ion-color-step-300: #4d4d4d;
+	--ion-color-step-350: #595959;
+	--ion-color-step-400: #666666;
+	--ion-color-step-450: #737373;
+	--ion-color-step-500: #808080;
+	--ion-color-step-550: #8c8c8c;
+	--ion-color-step-600: #999999;
+	--ion-color-step-650: #a6a6a6;
+	--ion-color-step-700: #b3b3b3;
+	--ion-color-step-750: #bfbfbf;
+	--ion-color-step-800: #cccccc;
+	--ion-color-step-850: #d9d9d9;
+	--ion-color-step-900: #e6e6e6;
+	--ion-color-step-950: #f2f2f2;
+
+	--ion-toolbar-background: #0d0d0d;
+
+	--ion-item-background: #1c1c1c;
+	--ion-item-background-activated: #313131;
+}
+
+
+
+/*
+ * Material Design Dark Theme
+ * -------------------------------------------
+ */
+.md body.dark {
+	--ion-color-primary: white;
+
+	--ion-background-color: var(--backgroundBlack);
+	--ion-background-color-rgb: 18, 18, 18;
+
+	--ion-text-color: #ffffff;
+	--ion-text-color-rgb: 255, 255, 255;
+
+	--ion-border-color: #222222;
+
+	--ion-color-step-50: #1e1e1e;
+	--ion-color-step-100: #2a2a2a;
+	--ion-color-step-150: black;
+	--ion-color-step-200: #414141;
+	--ion-color-step-250: #4d4d4d;
+	--ion-color-step-300: #595959;
+	--ion-color-step-350: #656565;
+	--ion-color-step-400: #717171;
+	--ion-color-step-450: #7d7d7d;
+	--ion-color-step-500: #898989;
+	--ion-color-step-550: #949494;
+	--ion-color-step-600: #a0a0a0;
+	--ion-color-step-650: #acacac;
+	--ion-color-step-700: #b8b8b8;
+	--ion-color-step-750: #c4c4c4;
+	--ion-color-step-800: #d0d0d0;
+	--ion-color-step-850: #dbdbdb;
+	--ion-color-step-900: #e7e7e7;
+	--ion-color-step-950: #f3f3f3;
+
+	--ion-item-background: transparent;
+
+
+	/* Optional CSS, this is added for the flashing that happens when toggling between themes */
+	ion-item {
+		--transition: none;
+	}
+
+
+	ion-title {
+		--color: white;
+	}
+
+	.themeFooter {
+		box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+		--background: var(--control);
+	}
+
+	.gBtnPrevious {
+		--background: #424242
+	}
+
+	.gBtnNext {
+		--background: var(--backgroundRed);
+	}
+
+	.themeSideMenu {
+		--background: var(--backgroundBlack);
+	}
+
+	.tIcon i {
+		color: #a0a0a0;
+	}
+	.active {
+		--ion-text-color: var(--backgroundRed);
+		font-weight: bold;
+
+
+		ion-icon {
+			color: var(--backgroundRed);
+		}
+		i {
+			color: var(--backgroundRed);
+		}
+	}
+
+
+	ion-content {
+		--background: var(--backgroundBlack);
+	}
+
+	ion-progress-bar {
+		--progress-background: var(--green);
+		--background: var(--progressBar)
+	}
+
+	ion-card,
+	ion-card-content {
+		background: var(--backgroundBlack);
+	}
+
+	.g-card-header,
+	.questionnaireHeader {
+
+		ion-card-title {
+			color: var(--title);
+		}
+
+		ion-card-subtitle {
+			color: var(--descriptionIntro);
+		}
+	}
+
+	.sessionListGroup {
+		background: var(--backgroundBlack);
+	}
+
+	.gBlack {
+		color: white !important;
+	}
+
+	.loading-wrapper {
+		background: var(--backgroundBlack);
+	}
+
+	::-webkit-scrollbar {
+		width: 10px;
+	}
+
+	::-webkit-scrollbar-thumb {
+		border-radius: 8px;
+		-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+		background: #989898;
+	}
+
+	::-webkit-scrollbar-track {
+		border-radius: 10px;
+	}
+
+	.gQuestionTitle {
+		color: var(--question);
+	}
+	.gMinMaxLabel {
+		color: var(--question);
+	}
+
+	.gQuestionDescription {
+		color: var(--questionDescription);
+	}
+
+	.gCount {
+		background: #3B3B3B;
+		color: #9D9D9D;
+	}
+
+	ion-item {
+
+		ion-label.label-floating {
+			color: var(--label);
+		}
+	}
+
+	ion-item:focus-within {
+
+		ion-label.label-floating {
+			color: white;
+		}
+	}
+
+	.answer {
+		color: white;
+	}
+
+	.gAnswerTextInput {
+		--border-color: var(--control);
+	}
+
+	//.answerTextInput:focus {
+	//	transition: ease-in-out 0.30s;
+	//}
+	.gAnswerTextInput:focus-within {
+		transition: ease-in-out 0.30s;
+		--border-color: white;
+	}
+
+	ion-range {
+		--bar-background: var(--control);
+		--bar-background-active: var(--backgroundRed);
+		--knob-background: white;
+		--pin-background: var(--backgroundRed);
+	}
+
+	ion-checkbox {
+		--border-color: var(--control);
+		--background-checked: var(--backgroundRed);
+		--border-color-checked: var(--backgroundRed);
+	}
+
+	ion-radio {
+		--color: var(--control);
+		--color-checked: var(--backgroundRed);
+	}
+
+	.reportQuestion {
+		color: var(--label);
+	}
+
+	.reportContent {
+		background: var(--backgroundBlack) !important;
+	}
+
+	.archetypeBody {
+		border-bottom: 1px solid #222428;
+	}
+
+	.archetypeHeader,
+	.traitsCategory {
+		background: #222428;
+	}
+
+	.titleIntro {
+		color: var(--title) !important;
+	}
+
+	.descriptionIntro {
+		color: var(--descriptionIntro);
+	}
+
+	.timeAgo {
+		color: var(--descriptionIntro);
+
+		ion-note {
+			color: var(--description);
+		}
+	}
+
+	.loginCardHeader {
+
+		ion-card-title {
+			color: var(--title);
+		}
+	}
+
+	.btnLogin {
+		--background: var(--backgroundRed);
+	}
+
+	.loginSignUp {
+		color: var(--description);
+	}
+
+	.rememberMe {
+		color: var(--title);
+	}
+
+	.logout-btn,
+	.gBtnSave {
+
+		ion-button {
+			--background: var(--backgroundRed);
+		}
+	}
+
+	.g-card-header-title {
+		color: var(--title);
+	}
+	.gColorHeading {
+		color: var(--title);
+	}
+	.inputCloseRate {
+		border-bottom-color: var(--ion-border-color);
+	}
+	.gTableCol,
+	.rowAnswer {
+		color: white;
+	}
+	.subCardHeader {
+		background: #292929;
+
+		ion-card-title {
+			color: #9D9D9D;
+		}
+	}
+	.goalFooter {
+		--background: #3B3B3B;
+		color: #9D9D9D;
+	}
+	.highlight {
+		--background: #292929;
+	}
+	.cardContent {
+		background: #3a3a3a;
+	}
+	.stepName {
+		color: white;
+	}
+	.stepType {
+		color: var(--descriptionWhite);
+	}
+	.stepDescription {
+		color: var(--descriptionWhite);
+	}
+	.custom-slider .ngx-slider .ngx-slider-bar {
+		background: var(--control);
+	}
+	.custom-slider .ngx-slider .ngx-slider-tick {
+		background: var(--control);
+	}
+	.section-title {
+		color: var(--descriptionWhite);
+	}
+}
+
+
+
+
+
+.md body.white {
+	--ion-color-primary: var(--backgroundRed);
+
+
+	ion-item {
+		--background-hover: var(--backgroundRed);
+		--ripple-color: var(--backgroundRed);
+		--background-focused: var(--backgroundRed);
+	}
+
+	.gBtnSave {
+
+		ion-button {
+			--background: var(--green);
+		}
+	}
+
+	.g-card-header-title {
+		color: var(--titleWhite);
+	}
+
+	.gListItemEdit,
+	.gEdit,
+	.g-icon-btn {
+		--color: var(--green);
+	}
+
+	.gBtnAdd {
+		color: var(--green);
+	}
+	.answer {
+		color: black;
+	}
+	.custom-slider .ngx-slider .ngx-slider-bar {
+		background: var(--controlWhite);
+	}
+	.custom-slider .ngx-slider .ngx-slider-tick {
+		background: var(--controlWhite);
+	}
+}
+
+
+
+//------------------------------------------------------------------------------------------
+/*
+ * Work
+ * -------------------------------------------
+ */
+.gTableCol {
+	font-size: 16px;
+}
+.gReportGrid {
+	padding: 0;
+}
+.gReportTitle {
+	margin: 32px 0 16px 0;
+
+
+	ion-col {
+		text-align: center;
+		font-size: 24px;
+	}
+}
+.financialGoalGrid {
+	margin-top: 32px;
+}
+.gCountGridTag {
+	font-size: 16px;
+	font-weight: bold;
+	margin: 0 8px;
+
+
+	span {
+		display: inline-block;
+		width: 22px;
+		max-width: 22px;
+	}
+}
+.gColorHeading {
+	color: var(--titleWhite);
+}
+.gBtnSave {
+
+	ion-button[disabled] {
+		--background: gray !important;
+	}
+}
+.gCardAdmin {
+	box-shadow: none;
+	margin: 0;
+}
+ion-toolbar {
+	color: white;
+	--background: var(--backgroundRed);
+}
+.timeAgo {
+	color: var(--descriptionWhite);
+
+	ion-note {
+		color: var(--titleWhite);
+	}
+}
+.titleIntro {
+	color: var(--titleWhite) !important;
+	font-weight: bold;
+}
+.descriptionIntro {
+	color: var(--descriptionWhite);
+}
+.loginCardHeader {
+
+	ion-card-title {
+		color: var(--titleWhite);
+	}
+}
+.rememberMe {
+	color: var(--titleWhite);
+}
+::-webkit-scrollbar {
+	width: 10px;
+}
+::-webkit-scrollbar-thumb {
+	border-radius: 8px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+::-webkit-scrollbar-track {
+	border-radius: 10px;
+}
+.btnLogin {
+	--background: var(--green);
+}
+.gBtnPrevious {
+	--background: #424242
+}
+.gBtnNext {
+	--background: var(--green);
+}
+ion-item {
+
+	ion-label.label-floating {
+		color: var(--labelWhite) !important;
+	}
+}
+ion-checkbox {
+	--background-checked: var(--backgroundRed);
+	--border-color-checked: var(--backgroundRed);
+}
+ion-radio {
+	--color: var(--controlWhite);
+	--color-checked: var(--backgroundRed);
+}
+ion-range {
+	--bar-background: var(--controlWhite);
+	--bar-background-active: var(--backgroundRed);
+	--pin-background: var(--backgroundRed);
+}
+.questionnaireHeader {
+
+	ion-card-title {
+		color: var(--titleWhite);
+	}
+
+	ion-card-subtitle {
+		color: var(--descriptionWhite);
+	}
+}
+ion-progress-bar {
+	--progress-background: var(--green);
+	--background: #c4c4c4;
+	z-index: 10;
+}
+.tIcon i {
+	color: #757575;
+}
+.active {
+	--ion-text-color: var(--backgroundRed);
+	font-weight: bold;
+
+
+	ion-icon {
+		--ion-text-color-rgb: var(--backgroundRed);
+	}
+	i {
+		color: var(--backgroundRed);
+	}
+}
+.activeText {
+	color: var(--backgroundRed) !important;
+}
+.gBlack {
+	color: black !important;
+}
+.gRed {
+	color: red;
+}
+.noPaddingCard {
+	padding: 0 0 14px;
+}
+
+
+
+
+.gInput {
+	margin: 16px 0;
+}
+.gInputCheck {
+
+	ion-checkbox {
+		margin-right: 16px;
+	}
+}
+.gBtnSave {
+	text-align: center;
+	margin-top: 24px;
+}
+
+
+
+
+
+.gListItem {
+	--padding-top: 16px;
+}
+.gListItemCount {
+	font-size: 14px;
+	width: 20px;
+	margin-right: 16px;
+}
+.gListItemTitle {
+	font-size: 17px !important;
+}
+.gListItemDescription {
+	margin-top: 6px !important;
+}
+.gListItemActive {
+	margin: 0 8px 0 16px !important;
+}
+.gListItemCategory {
+	margin: 0 32px !important;
+}
+.gListItemEdit,
+.gListItemExport,
+.gListItemDelete {
+	margin: 4px;
+}
+.timeAgo {
+	margin-top: 6px;
+	font-size: 14px;
+
+
+	ion-icon {
+		margin-right: 4px;
+		vertical-align: middle;
+	}
+}
+
+
+
+
+.gPageTitle {
+	margin: 16px 0 0 !important;
+	font-size: 22px !important;
+}
+.gPageTitleDescription {
+	margin: 6px 0 0 !important;
+}
+.gPageDescription {
+	margin-top: 24px !important;
+	font-size: 15px !important;
+	white-space: pre-line;
+	text-align: justify;
+}
+
+
+
+
+
+.gQuestionTitle {
+	text-align: justify;
+	font-size: 18px !important;
+	font-weight: bold !important;
+	margin: 16px 16px 8px 0 !important;
+	color: var(--questionWhite);
+}
+.gQuestionDescription {
+	text-align: justify;
+	margin: 0 !important;
+	margin-right: 16px !important;
+	font-size: 14px !important;
+	color: var(--questionDescriptionWhite);
+}
+.gCount {
+	font-size: 18px;
+	padding: 8px;
+	background: #f3f3f3;
+	color: #737373;
+}
+.gAnswerTextInput {
+	--inner-border-width: 1px;
+	--border-width: 0;
+	margin: 16px 16px 16px 0;
+	--padding-start: 0;
+	--inner-padding-start: 12px;
+	--inner-padding-end: 2px;
+	--highlight-background: transparent;
+}
+.gTextInput {
+	margin-right: 0;
+}
+.gMinMaxLabel {
+	font-size: 14px;
+	color: var(--questionWhite);
+}
+
+
+
+.profile {
+	margin-top: 48px;
+	margin-bottom: 32px;
+
+
+	ion-avatar {
+		margin: 0 auto;
+		width: 100px;
+		height: 100px;
+	}
+
+
+	p {
+		text-align: center;
+		font-weight: bold;
+	}
+}
+
+
+
+
+
+.logout-btn {
+	text-align: center;
+	margin: 32px 0;
+
+
+	ion-button {
+		--background: #424242;
+	}
+}
+
+
+.g-card-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-top: 24px;
+}
+.g-icon-btn {
+	--padding-start: 6px;
+	--padding-end: 6px;
+}
+.g-card-header-space {
+	width: 35px;
+}
+.g-card-header-title {
+	flex-grow: 1;
+	text-align: center;
+	margin: 0;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+
+.g-list-item {
+	padding-bottom: 16px;
+
+
+	span {
+		font-size: 14px;
+		width: 28px;
+		text-align: right;
+		margin-right: 16px;
+	}
+}
+
+
+.g-list-item-title {
+	margin-bottom: 8px !important;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+
+
+
+
+// toast
+.gToastError {
+	--background: var(--ion-color-danger);
+	--button-color: white;
+	--color: white;
+}
+.gToastSuccess {
+	--background: var(--ion-color-success);
+	--button-color: black;
+	--color: black;
+}
+
+
+
+
+
+// client
+.gCardClient {
+	box-shadow: none;
+	margin: 0;
+}
+.popover-content {
+	max-height: 300px !important;
+}
+
+.goalModal {
+	--max-height: 480px;
+}
+.introjs-helperLayer {
+	background-color: rgba(255,255,255, 0.2);
+}
+
+
+
+
+
+.gVideoPlayerModal {
+	--width: 750px;
+	--height: 454px;
+	--background: transparent;
+	padding: 0 16px;
+}

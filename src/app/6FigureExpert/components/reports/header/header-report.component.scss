@@ -1,0 +1,22 @@
+.logo {
+	text-align: center;
+	margin-bottom: 18px;
+
+
+	img {
+		width: 500px;
+	}
+}
+.text {
+	text-align: center;
+	margin: 0;
+	font-size: 16px;
+
+
+	span:first-child {
+		margin-right: 24px;
+	}
+	span:last-child {
+		margin-left: 24px;
+	}
+}

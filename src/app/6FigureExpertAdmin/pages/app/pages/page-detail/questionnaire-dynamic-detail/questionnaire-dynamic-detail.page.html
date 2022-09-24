@@ -1,0 +1,321 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-back-button [defaultHref]="routeBack"></ion-back-button>
+		</ion-buttons>
+
+
+		<ion-title>
+			{{backendService.currentApp.title}}
+		</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+	<ion-card class="gCardAdmin">
+
+		<!-- header -->
+		<ion-card-header class="g-card-header">
+
+			<!-- space -->
+			<ng-container *ngIf="userRoles?.can_edit">
+				<div class="g-card-header-space"></div>
+			</ng-container>
+
+
+			<!-- title -->
+			<ion-card-title class="g-card-header-title">{{page.type | snakeToTitleCase}}</ion-card-title>
+
+
+			<!-- edit -->
+			<ng-container *ngIf="userRoles?.can_edit">
+				<ion-button class="g-icon-btn" size="small" fill="clear" (click)="editPage(page.auid)">
+					<ion-icon name="create" slot="icon-only"></ion-icon>
+				</ion-button>
+			</ng-container>
+
+		</ion-card-header>
+
+
+		<!-- content -->
+		<ion-card-content>
+
+			<!-- title -->
+			<h3 class="gPageTitle">
+				{{page.questionnaire.title}}
+			</h3>
+
+
+			<div class="gPageTitleDescription">
+
+				<!-- active -->
+				<span [class.activeText]="page.active" class="ion-margin-end">
+                      {{page.active ? 'Active' : 'Deactive'}}
+                    </span>
+
+
+				<!-- group -->
+				<span *ngIf="page.questionnaire.group_id as group" class="gListItemCategory">
+                         Group:
+                         <span [ngClass]="backendService.groupsHash[group] ? 'gBlack' : 'gRed'">
+                              {{backendService.groupsHash[group] ? backendService.groupsHash[group].name : 'N/A'}}
+                         </span>
+                    </span>
+
+			</div>
+
+
+			<!-- description -->
+			<p *ngIf="page.questionnaire.description" class="gPageDescription">
+				{{page.questionnaire.description}}
+			</p>
+
+		</ion-card-content>
+
+	</ion-card>
+
+
+	<!-- dynamicQuestionnaire -->
+	<ion-card class="gCardAdmin">
+
+		<!-- header -->
+		<ion-card-header class="g-card-header">
+
+			<!-- space -->
+			<ng-container *ngIf="userRoles?.can_add">
+				<div class="g-card-header-space"></div>
+			</ng-container>
+
+
+			<!-- title -->
+			<ion-card-title class="g-card-header-title">Template</ion-card-title>
+
+
+			<!-- add -->
+			<ng-container *ngIf="userRoles?.can_add">
+				<ion-button class="g-icon-btn" fill="clear" size="small" (click)="navController.forwardWithUrl(EnumRoute.QUESTION_DYNAMIC_ADD)">
+					<ion-icon name="add" slot="icon-only"></ion-icon>
+				</ion-button>
+			</ng-container>
+
+		</ion-card-header>
+
+
+		<!-- template -->
+		<ion-card-content class="noPaddingCard" *ngIf="page.questionnaire.template as template">
+
+			<ion-list>
+
+				<ion-item button class="gListItem" (click)="showDetail(template.auid)">
+
+					<!-- count -->
+					<span slot="start" class="gListItemCount">1.</span>
+
+
+					<!-- title, description -->
+					<ion-label class="gListItemTitle">
+
+						<!-- type -->
+						{{template.type | snakeToTitleCase}}
+
+
+						<ng-container [ngSwitch]="template.type">
+
+							<!-- slider -->
+							<div *ngSwitchCase="EnumDynamicQuestion.SLIDER" class="gListItemDescription">
+
+								<!-- source -->
+								<ion-note class="ion-margin-end">
+									Source: <span class="gBlack">{{template.source | snakeToTitleCase}}</span>
+								</ion-note>
+
+
+								<!-- minValue -->
+								<ion-note class="gListItemCategory">
+									MinValue: <span class="gBlack">{{template.slider.min_value}}</span>
+								</ion-note>
+
+
+								<!-- maxValue -->
+								<ion-note class="gListItemCategory">
+									MaxValue: <span class="gBlack">{{template.slider.max_value}}</span>
+								</ion-note>
+
+
+								<!-- default -->
+								<ion-note class="gListItemCategory">
+									DefaultValue: <span class="gBlack">{{template.slider.default_answer}}</span>
+								</ion-note>
+
+
+								<!-- filter -->
+								<ion-note class="gListItemCategory" *ngIf="template.slider.filter">
+									FilterValue: <span class="gBlack">{{template.slider.filter}}</span>
+								</ion-note>
+
+							</div>
+
+
+							<!-- tableYesNo -->
+							<div *ngSwitchCase="EnumDynamicQuestion.TABLE_YES_NO" class="gListItemDescription">
+
+								<!-- source -->
+								<ion-note class="ion-margin-end">
+									Source: <span class="gBlack">{{template.source | snakeToTitleCase}}</span>
+								</ion-note>
+
+
+								<!-- default -->
+								<ion-note class="gListItemCategory">
+									Options: <span class="gBlack">2</span>
+								</ion-note>
+
+
+								<!-- label1 -->
+								<ion-note class="gListItemCategory">
+									Label 1: <span class="gBlack">{{template.table_yes_no.yes_label}}</span>
+								</ion-note>
+
+
+								<!-- label2 -->
+								<ion-note class="gListItemCategory">
+									Label 2: <span class="gBlack">{{template.table_yes_no.no_label}}</span>
+								</ion-note>
+
+							</div>
+
+
+							<!-- tableDropDown -->
+							<div *ngSwitchCase="EnumDynamicQuestion.TABLE_DROP_DOWN" class="gListItemDescription">
+
+								<!-- source -->
+								<ion-note class="ion-margin-end">
+									Source: <span class="gBlack">{{template.source | snakeToTitleCase}}</span>
+								</ion-note>
+
+
+								<!-- columns -->
+								<ion-note class="gListItemCategory">
+									Columns: <span class="gBlack">{{template.table_drop_down.columns.length}}</span>
+								</ion-note>
+
+
+								<!-- options -->
+								<ion-note *ngIf="template.source == EnumSource.SLIDER" class="gListItemCategory">
+									Options: <span class="gBlack">{{template.table_drop_down.options.length}}</span>
+								</ion-note>
+
+							</div>
+
+
+							<!-- checkGroup -->
+							<div *ngSwitchCase="EnumDynamicQuestion.MULTI_CHOICE_GROUP" class="gListItemDescription">
+
+								<!-- source -->
+								<ion-note class="ion-margin-end">
+									Source: <span class="gBlack">{{template.source | snakeToTitleCase}}</span>
+								</ion-note>
+
+
+								<!-- minValue -->
+								<ion-note class="gListItemCategory">
+									MinAnswerLimit: <span class="gBlack">{{template.check_group.min_value}}</span>
+								</ion-note>
+
+
+								<!-- maxValue -->
+								<ion-note class="gListItemCategory">
+									MaxAnswerLimit: <span class="gBlack">{{template.check_group.max_value}}</span>
+								</ion-note>
+
+							</div>
+
+
+							<!-- tableSkill -->
+							<div *ngSwitchCase="EnumDynamicQuestion.TABLE_SKILL" class="gListItemDescription">
+
+								<!-- source -->
+								<ion-note class="ion-margin-end">
+									Source: <span class="gBlack">{{template.source | snakeToTitleCase}}</span>
+								</ion-note>
+
+
+								<!-- columns -->
+								<ion-note class="gListItemCategory">
+									Columns: <span class="gBlack">{{template.table_skill.columns.length}}</span>
+								</ion-note>
+
+
+								<!-- options -->
+								<ion-note *ngIf="template.source == EnumSource.SLIDER" class="gListItemCategory">
+									Options: <span class="gBlack">{{template.table_skill.options.length}}</span>
+								</ion-note>
+
+							</div>
+
+
+							<!-- tableTrait -->
+							<div *ngSwitchCase="EnumDynamicQuestion.TABLE_TRAIT" class="gListItemDescription">
+
+								<!-- source -->
+								<ion-note class="ion-margin-end">
+									Source: <span class="gBlack">{{template.source | snakeToTitleCase}}</span>
+								</ion-note>
+
+
+								<!-- columns -->
+								<ion-note class="gListItemCategory">
+									Columns: <span class="gBlack">{{template.table_trait.columns.length}}</span>
+								</ion-note>
+
+
+								<!-- options -->
+								<ion-note *ngIf="template.source == EnumSource.SLIDER" class="gListItemCategory">
+									Options: <span class="gBlack">{{template.table_trait.options.length}}</span>
+								</ion-note>
+
+							</div>
+
+
+							<!-- tableSkillTrait -->
+							<div *ngSwitchCase="EnumDynamicQuestion.TABLE_SKILL_TRAIT" class="gListItemDescription">
+
+								<!-- source -->
+								<ion-note class="ion-margin-end">
+									Source: <span class="gBlack">Skills & Traits</span>
+								</ion-note>
+
+							</div>
+
+						</ng-container>
+
+					</ion-label>
+
+
+					<!-- edit -->
+					<ng-container *ngIf="userRoles?.can_edit">
+						<ion-button slot="end" fill="clear" class="gListItemEdit"
+								  (click)="navController.forwardWithUrl(EnumRoute.QUESTION_DYNAMIC_EDIT, {id: template.auid}); $event.stopPropagation();">
+							<ion-icon name="create" slot="icon-only"></ion-icon>
+						</ion-button>
+					</ng-container>
+
+
+					<!-- delete -->
+					<ng-container *ngIf="userRoles?.can_delete">
+						<ion-button slot="end" color="danger" fill="clear" class="gListItemDelete" (click)="deleteItem(template); $event.stopPropagation();">
+							<ion-icon name="trash" slot="icon-only"></ion-icon>
+						</ion-button>
+					</ng-container>
+
+				</ion-item>
+
+			</ion-list>
+
+		</ion-card-content>
+
+	</ion-card>
+
+</ion-content>

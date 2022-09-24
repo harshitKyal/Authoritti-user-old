@@ -1,0 +1,67 @@
+<ion-app>
+
+	<ion-split-pane [ngStyle]="{filter: showNoInternet ? 'blur(3px)' : 'none'}" contentId="main-content">
+
+		<ion-menu contentId="main-content" type="overlay" [disabled]="!backendService.signedInUser" [menuId]="EnumField.LEFT_MENU">
+
+			<ion-header>
+				<ion-toolbar>
+					<ion-title>Menu</ion-title>
+				</ion-toolbar>
+			</ion-header>
+
+
+			<ion-content>
+				<ion-list>
+					<ion-menu-toggle auto-hide="false" *ngFor="let p of backendService.appPages">
+						<ion-item routerDirection="root" [routerLink]="[p.url]" routerLinkActive="active" detail="false">
+							<ion-icon slot="start" [name]="p.icon"></ion-icon>
+							<ion-label>{{p.title}}</ion-label>
+						</ion-item>
+					</ion-menu-toggle>
+				</ion-list>
+
+
+				<!-- logout -->
+				<div class="logout-btn">
+					<ion-button (click)="onLogout()">
+						<ion-icon slot="start" name="log-out-outline"></ion-icon>
+						Logout
+					</ion-button>
+				</div>
+
+
+				<!-- theme -->
+				<div style="margin-top:30px; display: flex; justify-content: center">
+					<ion-item lines="none">
+						<ion-toggle slot="end" [(ngModel)]="backendService.blackTheme" (ionChange)="changeTheme($event.detail.checked)"></ion-toggle>
+					</ion-item>
+				</div>
+			</ion-content>
+
+		</ion-menu>
+
+
+		<ion-router-outlet id="main-content"></ion-router-outlet>
+
+	</ion-split-pane>
+
+
+	<!-- noInternet -->
+	<div *ngIf="showNoInternet" style="height: 100%;
+	    background: rgba(0, 0, 0, 0.5);
+	    z-index: 100;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;">
+
+		<ion-card>
+			<ion-card-header class="ion-margin">
+				<ion-card-title>No Internet Connection</ion-card-title>
+				<ion-card-subtitle>Check your network settings.</ion-card-subtitle>
+			</ion-card-header>
+		</ion-card>
+
+	</div>
+
+</ion-app>

@@ -1,0 +1,289 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-back-button [defaultHref]="routeBack"></ion-back-button>
+		</ion-buttons>
+
+
+		<ion-title>
+			{{backendService.currentApp.title}}
+		</ion-title>
+
+
+		<p class="ion-margin-end" slot="end">
+			Total Questions: {{backendService.currentPage.questionnaire.questions.length}}
+		</p>
+	</ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+	<ion-card class="gCardAdmin">
+
+		<!-- header -->
+		<ion-card-header class="g-card-header">
+
+			<!-- space -->
+			<ng-container *ngIf="userRoles?.can_edit">
+				<div class="g-card-header-space"></div>
+			</ng-container>
+
+
+			<!-- title -->
+			<ion-card-title class="g-card-header-title">{{page.type | snakeToTitleCase}}</ion-card-title>
+
+
+			<!-- edit -->
+			<ng-container *ngIf="userRoles?.can_edit">
+				<ion-button class="g-icon-btn" size="small" fill="clear" (click)="editPage(page.auid)">
+					<ion-icon name="create" slot="icon-only"></ion-icon>
+				</ion-button>
+			</ng-container>
+
+		</ion-card-header>
+
+
+		<!-- content -->
+		<ion-card-content>
+
+			<!-- title -->
+			<h3 class="gPageTitle">
+				{{page.questionnaire.title}}
+			</h3>
+
+
+			<div class="gPageTitleDescription">
+
+				<!-- active -->
+				<span [class.activeText]="page.active" class="ion-margin-end">
+					{{page.active ? 'Active' : 'Deactive'}}
+				</span>
+
+
+				<!-- category -->
+				<span *ngIf="page.questionnaire.category as categoryId" class="gListItemCategory">
+					Category:
+					<span [ngClass]="backendService.categoriesHash[categoryId] ? 'gBlack' : 'gRed'">
+						{{backendService.categoriesHash[categoryId] ? backendService.categoriesHash[categoryId].title : 'N/A'}}
+					</span>
+				</span>
+
+
+				<!-- group -->
+				<span *ngIf="page.questionnaire.group_id as group" class="gListItemCategory">
+					Group:
+					<span [ngClass]="backendService.groupsHash[group] ? 'gBlack' : 'gRed'">
+						{{backendService.groupsHash[group] ? backendService.groupsHash[group].name : 'N/A'}}
+					</span>
+				</span>
+
+			</div>
+
+
+			<!-- description -->
+			<p *ngIf="page.questionnaire.description" class="gPageDescription">
+				{{page.questionnaire.description}}
+			</p>
+
+		</ion-card-content>
+
+	</ion-card>
+
+
+	<!-- questionnaire -->
+	<ion-card class="gCardAdmin">
+
+		<!-- header -->
+		<ion-card-header class="g-card-header">
+
+			<!-- space -->
+			<ng-container *ngIf="userRoles?.can_add">
+				<div class="g-card-header-space"></div>
+			</ng-container>
+
+			<!-- title -->
+			<ion-card-title class="g-card-header-title">Questions</ion-card-title>
+
+
+			<!-- add -->
+			<ng-container *ngIf="userRoles?.can_add">
+				<ion-button class="g-icon-btn" fill="clear" size="small" (click)="navController.forwardWithUrl(EnumRoute.QUESTION_ADD)">
+					<ion-icon name="add" slot="icon-only"></ion-icon>
+				</ion-button>
+			</ng-container>
+
+		</ion-card-header>
+
+
+		<!-- questions -->
+		<ion-card-content class="noPaddingCard" *ngIf="page.questionnaire.questions.length">
+
+			<ion-list>
+
+				<ion-reorder-group [disabled]="false" (ionItemReorder)="onReorderItems(page.questionnaire.questions, $event)">
+
+					<ion-item button class="gListItem" *ngFor="let itemQuestion of page.questionnaire.questions; trackBy: dataManager.onTrackById; index as i;"
+							(click)="showDetail(itemQuestion.auid)">
+
+						<!-- count -->
+						<span slot="start" class="gListItemCount">{{i + 1}}.</span>
+
+
+						<!-- reorder -->
+						<ng-container *ngIf="userRoles?.can_reorder">
+							<ion-reorder slot="start"></ion-reorder>
+						</ng-container>
+
+
+						<!-- title, description -->
+						<ion-label class="gListItemTitle">
+							{{itemQuestion.title}}
+
+							<ng-container [ngSwitch]="itemQuestion.type">
+
+								<!-- slider -->
+								<div *ngSwitchCase="EnumQuestion.SLIDER" class="gListItemDescription">
+
+									<!-- type -->
+									<ion-note class="ion-margin-end">
+										Type: <span class="gBlack">Slider</span>
+									</ion-note>
+
+
+									<!-- minValue -->
+									<ion-note class="gListItemCategory">
+										MinValue: <span class="gBlack">{{itemQuestion.slider.min_value}}</span>
+									</ion-note>
+
+
+									<!-- maxValue -->
+									<ion-note class="gListItemCategory">
+										MaxValue: <span class="gBlack">{{itemQuestion.slider.max_value}}</span>
+									</ion-note>
+
+
+									<!-- default -->
+									<ion-note class="gListItemCategory">
+										DefaultValue: <span class="gBlack">{{itemQuestion.slider.default_answer}}</span>
+									</ion-note>
+
+								</div>
+
+
+								<!-- textInput -->
+								<div *ngSwitchCase="EnumQuestion.TEXT_INPUT" class="gListItemDescription">
+
+									<!-- type -->
+									<ion-note class="ion-margin-end">
+										Type: <span class="gBlack">TextInput</span>
+									</ion-note>
+
+								</div>
+
+
+								<!-- radio -->
+								<div *ngSwitchCase="EnumQuestion.SINGLE_CHOICE" class="gListItemDescription">
+
+									<!-- type -->
+									<ion-note class="ion-margin-end">
+										Type: <span class="gBlack">Radio</span>
+									</ion-note>
+
+
+									<!-- options -->
+									<ion-note class="gListItemCategory">
+										Options: <span class="gBlack">{{itemQuestion.radio.options.length}}</span>
+									</ion-note>
+
+
+									<!-- options -->
+									<ion-note *ngIf="itemQuestion.radio.has_other" class="gListItemCategory">
+										Has Other: <span class="gBlack">Yes</span>
+									</ion-note>
+
+								</div>
+
+
+								<!-- check -->
+								<div *ngSwitchCase="EnumQuestion.MULTI_CHOICE" class="gListItemDescription">
+
+									<!-- type -->
+									<ion-note class="ion-margin-end">
+										Type: <span class="gBlack">Check</span>
+									</ion-note>
+
+
+									<!-- options -->
+									<ion-note class="gListItemCategory">
+										Options: <span class="gBlack">{{itemQuestion.check.options.length}}</span>
+									</ion-note>
+
+
+									<!-- options -->
+									<ion-note *ngIf="itemQuestion.check.max_answer_count" class="gListItemCategory">
+										Answer Up To: <span class="gBlack">{{itemQuestion.check.max_answer_count}}</span>
+									</ion-note>
+
+								</div>
+
+
+								<!-- multiTextInput -->
+								<div *ngSwitchCase="EnumQuestion.MULTI_TEXT_INPUT" class="gListItemDescription">
+
+									<!-- type -->
+									<ion-note class="ion-margin-end">
+										Type: <span class="gBlack">Multiple TextInputs</span>
+									</ion-note>
+
+
+									<!-- options -->
+									<ion-note class="gListItemCategory">
+										Inputs: <span class="gBlack">{{itemQuestion.multi_text_input.inputs.length}}</span>
+									</ion-note>
+
+								</div>
+
+
+								<!-- textArea -->
+								<div *ngSwitchCase="EnumQuestion.TEXT_AREA" class="gListItemDescription">
+
+									<!-- type -->
+									<ion-note class="ion-margin-end">
+										Type: <span class="gBlack">TextArea</span>
+									</ion-note>
+
+								</div>
+
+							</ng-container>
+
+						</ion-label>
+
+
+						<!-- edit -->
+						<ng-container *ngIf="userRoles?.can_edit">
+							<ion-button slot="end" fill="clear" class="gListItemEdit"
+									  (click)="navController.forwardWithUrl(EnumRoute.QUESTION_EDIT, {id: itemQuestion.auid}); $event.stopPropagation();">
+								<ion-icon name="create" slot="icon-only"></ion-icon>
+							</ion-button>
+						</ng-container>
+
+
+						<!-- delete -->
+						<ng-container *ngIf="userRoles?.can_delete">
+							<ion-button slot="end" color="danger" fill="clear" class="gListItemDelete" (click)="deleteItem(itemQuestion); $event.stopPropagation();">
+								<ion-icon name="trash" slot="icon-only"></ion-icon>
+							</ion-button>
+						</ng-container>
+
+					</ion-item>
+
+				</ion-reorder-group>
+
+			</ion-list>
+
+		</ion-card-content>
+
+	</ion-card>
+
+</ion-content>

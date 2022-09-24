@@ -1,0 +1,43 @@
+<!-- count -->
+<div>
+	<span class="gCount"><ng-content></ng-content></span>
+</div>
+
+
+<!-- title -->
+<p class="gQuestionTitle">
+	{{question.title}}
+</p>
+
+
+<!-- description -->
+<p class="gQuestionDescription" *ngIf="question.description">
+	{{question.description}}
+</p>
+
+
+<ion-grid>
+
+	<!-- radio -->
+	<ion-radio-group [value]="question.radio.answers[EnumField.AUID]" (ionChange)="onChange($event.detail.value)">
+		<ion-row>
+			<ion-col size="auto" *ngFor="let item of question.radio.options; trackBy: dataManager.onTrackById;">
+				<ion-item lines="none">
+					<ion-radio slot="start" [value]="item.auid"></ion-radio>
+					<ion-label>{{item.name}}</ion-label>
+				</ion-item>
+			</ion-col>
+		</ion-row>
+	</ion-radio-group>
+
+
+	<!-- other -->
+	<ion-row *ngIf="question.radio.answers[EnumField.AUID] == EnumField.OTHER">
+		<ion-col>
+			<ion-item style="margin: 0 6px" class="gAnswerTextInput">
+				<ion-textarea rows="2" [(ngModel)]="question.radio.answers[EnumField.OTHER]" placeholder="Write Here"></ion-textarea>
+			</ion-item>
+		</ion-col>
+	</ion-row>
+
+</ion-grid>

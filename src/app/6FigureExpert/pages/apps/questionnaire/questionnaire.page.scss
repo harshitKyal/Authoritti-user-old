@@ -1,0 +1,43 @@
+ion-card {
+	margin: 0;
+	border-radius: 0;
+	box-shadow: none;
+	height: calc(100% - 10px);
+}
+
+.questionnaireHeader {
+	padding: 32px 24px 16px 24px;
+	z-index: 10;
+	box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+
+
+	.extraTitle {
+		color: var(--backgroundRed);
+		font-size: 24px;
+		font-weight: 900;
+		margin: 0 0 16px 8px;
+	}
+
+
+	ion-card-title {
+		font-weight: bold;
+		margin: 0 16px 0 8px;
+		white-space: pre-line;
+	}
+
+
+	ion-card-subtitle {
+		white-space: pre-line;
+		margin-top: 8px;
+		margin-right: 16px;
+		margin-left: 8px;
+	}
+}
+.questionnaire {
+	display: block;
+	margin: 64px 8px 8px 16px;
+}
+.scrollCardQuestionnaire {
+	height: calc(100vh - 122px);
+	overflow: auto;
+}

@@ -1,0 +1,96 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-back-button [defaultHref]="routeBack"></ion-back-button>
+		</ion-buttons>
+
+
+		<ion-title>
+			{{title}}
+		</ion-title>
+
+
+		<ion-buttons slot="end">
+			<!-- delete -->
+			<ion-button *ngIf="app.auid" (click)="deleteItem(app)">
+				<ion-icon name="trash" slot="icon-only"></ion-icon>
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+	<ion-card class="gCardAdmin">
+
+		<!-- header -->
+		<ion-card-header *ngIf="app.auid" class="g-card-header">
+			<ion-card-title class="g-card-header-title">{{app.title}}</ion-card-title>
+		</ion-card-header>
+
+
+		<ion-card-content>
+
+			<form [formGroup]="formAddEdit">
+
+				<!-- active -->
+				<ion-item class="gInput gInputCheck" lines="none">
+					<ion-label>Active</ion-label>
+					<ion-checkbox [formControlName]="EnumField.ACTIVE" slot="start"></ion-checkbox>
+				</ion-item>
+
+
+				<!-- type -->
+				<ion-item class="gInput">
+					<ion-label position="floating">Type</ion-label>
+					<ion-select [formControlName]="EnumField.TYPE" interface="popover" placeholder="Select Type">
+						<ion-select-option [value]="EnumApp.DYNAMIC">Dynamic</ion-select-option>
+						<ion-select-option [value]="EnumApp.DYNAMIC_CUSTOM">Dynamic + Custom</ion-select-option>
+					</ion-select>
+				</ion-item>
+
+
+				<!-- name -->
+				<ion-item class="gInput">
+					<ion-label position="floating">Name *</ion-label>
+					<ion-input [formControlName]="EnumField.NAME"></ion-input>
+				</ion-item>
+
+
+				<!-- title -->
+				<ion-item class="gInput">
+					<ion-label position="floating">Title *</ion-label>
+					<ion-input [formControlName]="EnumField.TITLE"></ion-input>
+				</ion-item>
+
+
+				<!-- icon -->
+				<ion-item class="gInput">
+					<ion-label position="floating" class="inputIcon">
+						<i [class]="inputIcon.value || app.icon"></i>
+					</ion-label>
+					<ion-select [formControlName]="EnumField.ICON" #inputIcon interface="popover" placeholder="Select Icon">
+						<ion-select-option value="fas fa-theater-masks">Mask</ion-select-option>
+						<ion-select-option value="fas fa-bullseye">BullsEye</ion-select-option>
+						<ion-select-option value="far fa-smile">Smile</ion-select-option>
+						<ion-select-option value="fas fa-gift">Gift</ion-select-option>
+						<ion-select-option value="fas fa-yin-yang">Yin-Yang</ion-select-option>
+						<ion-select-option value="fas fa-book-open">Book</ion-select-option>
+						<ion-select-option value="fas fa-heart">Heart</ion-select-option>
+						<ion-select-option value="fas fa-wrench">Spanner</ion-select-option>
+					</ion-select>
+				</ion-item>
+
+			</form>
+
+
+			<!-- save -->
+			<div class="gBtnSave">
+				<ion-button [disabled]="formAddEdit.invalid" (click)="onSubmit(formAddEdit.getRawValue())">Save</ion-button>
+			</div>
+		</ion-card-content>
+
+	</ion-card>
+
+</ion-content>

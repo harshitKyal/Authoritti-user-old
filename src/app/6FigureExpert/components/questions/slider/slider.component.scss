@@ -1,0 +1,99 @@
+.sliderValues {
+	display: flex;
+	justify-content: space-between;
+	margin: 16px 34px 0 42px; // 0-9 digit
+	position: absolute;
+	left: 1px;
+	right: 1px;
+}
+.sliderValues_0_10 {
+	margin: 16px 24px 0 42px;
+}
+.sliderValues_multi_0_9 {
+	margin: 16px 24px 0 32px;
+}
+.sliderValues_multi_0_100 {
+	margin: 16px 24px 0 32px;
+
+
+	ion-note:first-child,
+	ion-note:last-child {
+		width: 24px;
+	}
+}
+.sliderTags {
+	display: flex;
+	justify-content: space-between;
+
+
+	ion-note {
+		flex-basis: 86px;
+		text-align: center;
+
+
+		&:first-child {
+			text-align: left;
+		}
+		&:last-child {
+			text-align: right;
+		}
+	}
+}
+.answer {
+	text-align: center;
+	font-size: 16px;
+}
+ion-item {
+	--background: transparent;
+	--padding-start: 0;
+	--inner-padding-end: 0;
+	--min-height: 35px;
+}
+ion-range {
+	padding-bottom: 0;
+	--height: 30px;
+}
+.labels {
+	font-size: 14px;
+}
+.right {
+	margin-right: 24px;
+}
+.left {
+	margin-left: 24px;
+}
+.bottomInfo {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 0 12px;
+}
+::ng-deep {
+	.custom-slider .ngx-slider {
+		height: 6px;
+		margin-left: 8px;
+		margin-right: 8px;
+		margin-top: 52px;
+	}
+	.custom-slider .ngx-slider .ngx-slider-bar {
+		height: 2px;
+	}
+	.custom-slider .ngx-slider .ngx-slider-bar-wrapper:hover {
+		cursor: pointer;
+	}
+	.custom-slider .ngx-slider .ngx-slider-pointer {
+		background: var(--backgroundRed);
+	}
+	.custom-slider .ngx-slider .ngx-slider-pointer:after {
+		display: none;
+	}
+	.custom-slider .ngx-slider .ngx-slider-tick {
+		width: 8px;
+		height: 8px;
+		background: #525252;
+	}
+	.custom-slider .ngx-slider .ngx-slider-bubble,
+	.custom-slider .ngx-slider .ngx-slider-bubble.ngx-slider-limit {
+		color: #949494;
+	}
+}

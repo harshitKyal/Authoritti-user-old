@@ -1,0 +1,13 @@
+ion-content {
+	--padding-top: 0;
+	--padding-bottom: 0;
+}
+.no-report {
+	margin-top: 64px;
+	text-align: center;
+}
+.reportContent {
+	padding-top: 16px;
+	height: calc(100vh - 112px);
+	overflow: auto;
+}

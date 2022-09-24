@@ -1,0 +1,79 @@
+<form [formGroup]="formAddEdit">
+
+	<!-- title -->
+	<ion-item class="gInput">
+		<ion-label position="floating">Title *</ion-label>
+		<ion-textarea rows="2" [formControlName]="EnumField.TITLE"></ion-textarea>
+	</ion-item>
+
+
+	<!-- description -->
+	<ion-item class="gInput">
+		<ion-label position="floating">Description</ion-label>
+		<ion-textarea rows="5" [formControlName]="EnumField.DESCRIPTION"></ion-textarea>
+	</ion-item>
+
+
+	<!-- slider -->
+	<div [formGroupName]="EnumField.SLIDER">
+
+		<!-- minimum value -->
+		<ion-item class="gInput">
+			<ion-label position="floating">Minimum Value *</ion-label>
+			<ion-input [formControlName]="EnumField.MIN_VALUE"></ion-input>
+		</ion-item>
+
+
+		<!-- maximum value -->
+		<ion-item class="gInput">
+			<ion-label position="floating">Maximum Value *</ion-label>
+			<ion-input [formControlName]="EnumField.MAX_VALUE"></ion-input>
+		</ion-item>
+
+
+		<!-- default answer -->
+		<ion-item class="gInput">
+			<ion-label position="floating">Default Answer *</ion-label>
+			<ion-input [formControlName]="EnumField.DEFAULT_ANSWER"></ion-input>
+		</ion-item>
+
+
+		<!-- minimum value label -->
+		<ion-item class="gInput">
+			<ion-label position="floating">Minimum Value Label</ion-label>
+			<ion-input [formControlName]="EnumField.MIN_VALUE_LABEL"></ion-input>
+		</ion-item>
+
+
+		<!-- maximum value label -->
+		<ion-item class="gInput">
+			<ion-label position="floating">Maximum Value Label</ion-label>
+			<ion-input [formControlName]="EnumField.MAX_VALUE_LABEL"></ion-input>
+		</ion-item>
+
+	</div>
+
+</form>
+
+
+<!-- tags -->
+<div class="gInput">
+
+	<ion-item class="gInput">
+		<ion-label position="floating">Tag</ion-label>
+		<ion-input placeholder="Type and press enter" ngModel #input="ngModel" (keyup.enter)="onAddTag(input.value); input.reset();"></ion-input>
+	</ion-item>
+
+
+	<ion-chip *ngFor="let item of tags; index as i; trackBy: dataManager.onTrackByIndex;" (click)="onRemoveTag(i)">
+		<ion-label>{{item}}</ion-label>
+		<ion-icon name="close-circle"></ion-icon>
+	</ion-chip>
+
+</div>
+
+
+<!-- save -->
+<div class="gBtnSave">
+	<ion-button [disabled]="formAddEdit.invalid" (click)="onSubmit(formAddEdit.value)">Save</ion-button>
+</div>

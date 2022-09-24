@@ -1,0 +1,42 @@
+<ion-footer>
+	<ion-toolbar class="themeFooter">
+
+		<ion-row>
+
+			<!--<ion-col class="copyrights" size="12" [sizeMd]="hasNextPrevious ? '4' : '12'">-->
+			<ion-col class="curPage" *ngIf="pageService?.currentPage?.type != EnumPage.REPORT">
+				<p>Page {{this.pageService.currentPageIndex + 1}}/{{this.backendService.pagesCount}}</p>
+			</ion-col>
+
+
+			<!--<ion-col *ngIf="hasNextPrevious" class="next-previous" size="12" sizeMd="4" offsetMd="4">-->
+			<ion-col *ngIf="hasNextPrevious" class="next-previous" size="auto">
+
+				<!-- previous -->
+				<ion-button class="gBtnPrevious" *ngIf="showPrevious"
+						  (click)="eventPrevious.emit()">Previous
+				</ion-button>
+
+
+				<!-- next -->
+				<ion-button class="gBtnNext" *ngIf="showNext"
+						  (click)="eventNext.emit()" [disabled]="disable">Next
+				</ion-button>
+
+
+				<!-- submit -->
+				<ion-button class="gBtnNext" *ngIf="showSubmit"
+						  (click)="eventNext.emit(true)" [disabled]="disable">Submit
+				</ion-button>
+			</ion-col>
+
+
+			<!-- copyright -->
+			<!--<ion-col class="copyrights" size="12" [sizeMd]="hasNextPrevious ? '4' : '12'">-->
+			<!--	<p>Copyright © {{copyRightDate}} Mysticpreneur Pty Ltd.</p>-->
+			<!--</ion-col>-->
+
+		</ion-row>
+
+	</ion-toolbar>
+</ion-footer>

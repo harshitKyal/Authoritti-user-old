@@ -1,0 +1,113 @@
+.reportTitle {
+	margin: 16px 0;
+
+
+	ion-label {
+		text-align: center;
+		font-size: 24px;
+	}
+}
+
+.reportCategoryRow {
+	margin: 0;
+}
+.reportQuestionCategory {
+	text-align: center;
+	margin: 0;
+}
+.reportGroupRow {
+	margin: 16px 8px 0;
+
+
+	ion-col {
+		padding: 0;
+	}
+}
+.reportGroupHeader {
+	min-height: 49px;
+	font-size: 18px;
+	font-weight: bold;
+
+
+	ion-label {
+		margin: 12px auto;
+	}
+}
+.tableHeader {
+	background-color: #EF5EA7;
+	color: white;
+	margin: 0 8px;
+
+
+	ion-col {
+		padding: 18px 5px;
+	}
+}
+.gQuestionTitle {
+	text-align: center;
+	margin: 0 !important;
+	color: white;
+}
+.rowAnswer {
+	font-size: 16px;
+	color: black !important;
+}
+.sameHeight {
+	padding: 18px 5px;
+}
+.tableRows {
+	border-top: white solid 1px;
+	margin-left: 8px;
+	margin-right: 8px;
+}
+.tableRows:nth-child(even) {
+	background: #F8D1E0;
+}
+.tableRows:nth-child(odd) {
+	background: #FBE9F0;
+}
+.tableRows ion-col:first-child {
+	background-color: #EF5EA7;
+	color: white !important;
+}
+.tableRows ion-col:not(:last-child) {
+	border-right: white solid 1px;
+}
+
+
+
+
+.goal {
+	color: white;
+	padding-left: 16px !important;
+
+	p {
+		margin: 0;
+		font-weight: bold;
+		font-size: 18px;
+	}
+}
+.steps {
+	margin-left: 8px;
+	padding-left: 8px;
+	border-left: 3px solid #00b0f0;
+}
+.stepsOutcome {
+	border-left: 3px solid #92d050;
+}
+.stepType {
+	margin: 0;
+	font-size: 13px;
+	color: var(--descriptionWhite);
+	text-transform: capitalize;
+}
+.stepName {
+	margin: 0;
+	font-weight: bold;
+	color: black;
+}
+.stepDescription {
+	margin: 8px 16px 0;
+	font-size: 14px;
+	color: var(--descriptionWhite);
+}

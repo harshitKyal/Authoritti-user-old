@@ -1,0 +1,97 @@
+<comp-header [title]="appName"
+		   [pageType]="EnumPage.QUESTIONNAIRE"
+		   [showHome]="true"
+		   [showMore]="true"
+		   [showReset]="true"
+		   (eventHome)="returnHome()"
+		   (event)="reset()">
+</comp-header>
+
+
+<ion-content>
+
+	<!-- progressBar -->
+	<ion-progress-bar [value]="progressValue"></ion-progress-bar>
+
+
+	<ion-grid class="financialGoalGrid">
+
+		<!-- title -->
+		<ion-row>
+			<ion-col class="ion-text-center">
+				<h4 class="gColorHeading gFinancialTitle">List Your Hobbies That Are Natural To You</h4>
+			</ion-col>
+		</ion-row>
+
+
+		<!-- inputs -->
+		<ion-row class="ion-align-items-center ion-margin-bottom">
+			<ion-col class=gCountGridTag size="auto">
+				<span class="gColorHeading">#</span>
+			</ion-col>
+			<ion-col>
+				<ion-item class="gAnswerTextInput gTextInput">
+					<ion-label position="floating">Name</ion-label>
+					<ion-input [(ngModel)]="inputName"></ion-input>
+				</ion-item>
+			</ion-col>
+			<ion-col>
+				<ion-item class="gAnswerTextInput gTextInput">
+					<ion-label position="floating">Description of Passion/Hobby</ion-label>
+					<ion-input [(ngModel)]="inputDescription"></ion-input>
+				</ion-item>
+			</ion-col>
+			<ion-col>
+				<ion-item class="gAnswerTextInput gTextInput">
+					<ion-label position="floating">When did you start this Passion/Hobby</ion-label>
+					<ion-input [(ngModel)]="inputYear" (keypress)="filterNumericInput($event)"></ion-input>
+				</ion-item>
+			</ion-col>
+			<ion-col size="auto">
+				<ion-button fill="clear" class="g-icon-btn" (click)="addPassion()">
+					<ion-icon slot="icon-only" name="add-outline"></ion-icon>
+				</ion-button>
+			</ion-col>
+		</ion-row>
+
+
+		<!-- passions -->
+		<ion-row class="passions">
+			<ion-col>
+				<ion-list>
+					<ion-item class="passionItem" button *ngFor="let item of passions; index as i; trackBy: dataManager.onTrackById"
+							(click)="editPassion(i,item)">
+						<ion-label class="passionCount">
+							<span class="gColorHeading">{{i + 1}}.</span>
+						</ion-label>
+						<ion-label class="ion-text-center">
+							{{item.name}}
+						</ion-label>
+						<ion-label class="ion-text-center">
+							{{item.description}}
+						</ion-label>
+						<ion-label class="ion-text-center">
+							{{item.year}}
+						</ion-label>
+						<ion-button slot="end" fill="clear" size="small" class="g-icon-btn"
+								  (click)="editPassion(i, item); $event.stopPropagation();">
+							<ion-icon color="danger" slot="icon-only" name="pencil-outline"></ion-icon>
+						</ion-button>
+						<ion-button slot="end" fill="clear" size="small" class="g-icon-btn"
+								  (click)="removePassion(i); $event.stopPropagation();">
+							<ion-icon color="danger" slot="icon-only" name="trash-outline"></ion-icon>
+						</ion-button>
+					</ion-item>
+				</ion-list>
+			</ion-col>
+		</ion-row>
+
+	</ion-grid>
+
+</ion-content>
+
+
+<comp-footer (eventPrevious)="onPrevious()"
+		   (eventNext)="onNext($event)"
+		   [disable]="passions.length == 0">
+</comp-footer>

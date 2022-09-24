@@ -1,0 +1,92 @@
+.reportCategoryRow {
+	margin: 0;
+}
+.reportQuestionCategory {
+	text-align: center;
+	margin: 0;
+}
+.reportGroupRow {
+
+	ion-col {
+		padding: 0;
+	}
+}
+.reportGroupHeader {
+	min-height: 49px;
+	font-size: 18px;
+	font-weight: bold;
+
+
+	ion-label {
+		margin: 12px auto;
+	}
+}
+
+
+
+
+
+.reportSliderRow,
+.reportTextInputRow,
+.reportCheckRow,
+.reportMultiRow,
+.reportRadioRow,
+{
+	margin: 24px 16px;
+}
+.reportSliderCol {
+	margin: 8px 0;
+	text-align: center;
+}
+.reportMultiGroup {
+	display: flex;
+	margin-bottom: 8px;
+	margin-left: 22px;
+}
+.reportTableYesNoRow, {
+	margin: 24px 16px;
+}
+
+
+
+
+
+.reportQuestion {
+	margin: 0;
+	text-align: justify;
+	font-weight: bold;
+}
+.reportQuestionMulti {
+	font-weight: bold;
+	margin: 0 16px 0 0;
+	min-width: 102px;
+	width: 100px;
+}
+.reportQuestionTableYesNo {
+	text-align: center;
+}
+
+
+
+
+
+.reportAnswer {
+	margin: 0 8px 0 22px;
+}
+.reportAnswerTextInput {
+	text-align: justify;
+}
+.reportAnswerCheck {
+	margin: 6px 22px;
+}
+.reportAnswerMulti {
+	text-align: justify;
+	margin: 0;
+}
+.reportAnswerTextArea {
+	white-space: pre-line;
+}
+.reportAnswerTableYesNo {
+	text-align: center;
+	margin: 0;
+}

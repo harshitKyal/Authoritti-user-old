@@ -1,0 +1,20 @@
+.userRoles {
+	font-weight: bold;
+	font-size: 22px;
+	margin: 32px 0 8px;
+	text-align: center;
+}
+.userRoles + ion-list > ion-item {
+	--inner-padding-end: 0;
+}
+.credentials {
+
+	ion-item {
+		--inner-border-width: 0;
+	}
+
+
+	ion-checkbox {
+		margin: 0 8px 0 0;
+	}
+}

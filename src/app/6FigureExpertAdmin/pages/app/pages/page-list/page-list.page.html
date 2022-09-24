@@ -1,0 +1,189 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-menu-button></ion-menu-button>
+		</ion-buttons>
+
+
+		<ion-title>
+			{{backendService.currentApp.title}}
+		</ion-title>
+
+
+		<ion-buttons slot="end">
+			<!-- add -->
+			<ng-container *ngIf="userRoles?.can_add">
+				<ion-button (click)="navController.forwardWithUrl(EnumRoute.PAGE_ADD, {skipUrlCount: 1})">
+					<ion-icon name="add" slot="icon-only"></ion-icon>
+				</ion-button>
+			</ng-container>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+	<ion-card class="gCardAdmin">
+
+		<!-- header -->
+		<ion-card-header class="g-card-header">
+			<ion-card-title class="g-card-header-title">Pages</ion-card-title>
+		</ion-card-header>
+
+
+		<!-- content -->
+		<ng-container *ngIf="(pages | keyvalue) as pagesKeyValue">
+
+			<!-- questionnaire, report -->
+			<ion-card-content class="noPaddingCard" *ngIf="pagesKeyValue[0][EnumField.VALUE].length || pagesKeyValue[1][EnumField.VALUE].length">
+
+				<ion-list>
+
+					<ng-container *ngFor="let item of pagesKeyValue"
+							    [ngSwitch]="item.key">
+
+						<!-- questionnaire -->
+						<ng-container *ngSwitchCase="EnumPage.QUESTIONNAIRE">
+							<ng-container [ngTemplateOutlet]="questionnaire"
+									    [ngTemplateOutletContext]="{pages: item.value}">
+							</ng-container>
+						</ng-container>
+
+
+						<!-- report -->
+						<ng-container *ngSwitchCase="EnumPage.REPORT">
+							<ng-container [ngTemplateOutlet]="report"
+									    [ngTemplateOutletContext]="{pages: item.value}">
+							</ng-container>
+						</ng-container>
+
+					</ng-container>
+
+				</ion-list>
+
+			</ion-card-content>
+
+		</ng-container>
+
+	</ion-card>
+
+</ion-content>
+
+
+<!-- questionnaire -->
+<ng-template #questionnaire let-newPages="pages"> <!-- list contains a new reference (newPages) -->
+
+	<ion-reorder-group disabled="false" (ionItemReorder)="onReorderItems(newPages, $event)">
+
+		<ion-item button class="gListItem" *ngFor="let itemPage of newPages; trackBy: dataManager.onTrackById; index as i;"
+				(click)="showDetail(itemPage)">
+
+			<!-- count -->
+			<span slot="start" class="gListItemCount">{{i + 1}}.</span>
+
+
+			<!-- reorder -->
+			<ng-container *ngIf="userRoles?.can_reorder">
+				<ion-reorder slot="start"></ion-reorder>
+			</ng-container>
+
+
+			<ion-label class="gListItemTitle">
+
+				<!-- title -->
+				{{itemPage[EnumField.INTRO]
+				   ? itemPage[EnumField.INTRO].title
+				   : itemPage[EnumField.SECTION]
+						 ? itemPage[EnumField.SECTION].title
+						 : itemPage[EnumField.QUESTIONNAIRE].title}}
+
+
+				<div *ngIf="itemPage[EnumField.QUESTIONNAIRE]" class="gListItemDescription">
+
+					<!-- template -->
+					<ion-note *ngIf="itemPage.type == EnumPage.QUESTIONNAIRE_DYNAMIC; else QuestionCount" class="ion-margin-end">
+						Page: <span class="gBlack">Dynamic</span>
+					</ion-note>
+
+
+					<!-- questionsCount -->
+					<ng-template #QuestionCount>
+						<ion-note class="ion-margin-end">
+							Questions: <span class="gBlack">{{itemPage[EnumField.QUESTIONNAIRE][EnumField.QUESTIONS].length}}</span>
+						</ion-note>
+					</ng-template>
+
+
+					<!-- category -->
+					<ion-note *ngIf="itemPage[EnumField.QUESTIONNAIRE][EnumField.CATEGORY] as categoryId" class="gListItemCategory">
+						Category:
+						<span [ngClass]="backendService.categoriesHash[categoryId] ? 'gBlack' : 'gRed'">
+							{{backendService.categoriesHash[categoryId] ? backendService.categoriesHash[categoryId].title : 'N/A'}}
+						</span>
+					</ion-note>
+
+
+					<!-- group -->
+					<ion-note *ngIf="itemPage[EnumField.QUESTIONNAIRE][EnumField.GROUP_ID] as group" class="gListItemCategory">
+						Group:
+						<span [ngClass]="backendService.groupsHash[group] ? 'gBlack' : 'gRed'">
+							{{backendService.groupsHash[group] ? backendService.groupsHash[group].name : 'N/A'}}
+						</span>
+					</ion-note>
+
+				</div>
+
+			</ion-label>
+
+
+			<!-- active -->
+			<p slot="end" class="gListItemActive" [class.activeText]="itemPage.active">{{itemPage.active ? 'Active' : 'Deactive'}}</p>
+
+
+			<!-- delete -->
+			<ng-container *ngIf="userRoles?.can_delete">
+				<ion-button slot="end" color="danger" fill="clear" class="gListItemDelete" (click)="deleteItem(itemPage); $event.stopPropagation();">
+					<ion-icon name="trash" slot="icon-only"></ion-icon>
+				</ion-button>
+			</ng-container>
+
+		</ion-item>
+
+	</ion-reorder-group>
+
+</ng-template>
+
+
+<!-- report -->
+<ng-template #report let-newPages="pages">
+
+	<ion-item button class="gListItem" *ngFor="let itemPage of newPages; trackBy: dataManager.onTrackById; index as i;"
+			(click)="showDetail(itemPage)">
+
+		<ion-label class="gListItemTitle">
+
+			<!-- title -->
+			{{itemPage.title}}
+
+
+			<!-- type -->
+			<p class="gListItemDescription">{{itemPage.report[EnumField.FORMULA][EnumField.CODE] | snakeToTitleCase}}</p>
+
+		</ion-label>
+
+
+		<!-- active -->
+		<p slot="end" class="gListItemActive" [class.activeText]="itemPage.active">{{itemPage.active ? 'Active' : 'Deactive'}}</p>
+
+
+		<!-- delete -->
+		<ng-container *ngIf="userRoles?.can_delete">
+			<ion-button slot="end" color="danger" fill="clear" class="gListItemDelete" (click)="deleteItem(itemPage); $event.stopPropagation();">
+				<ion-icon name="trash" slot="icon-only"></ion-icon>
+			</ion-button>
+		</ng-container>
+
+	</ion-item>
+
+</ng-template>

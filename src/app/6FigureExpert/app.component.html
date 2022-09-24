@@ -1,0 +1,87 @@
+<ion-app>
+
+	<ion-menu *ngIf="backendService.signedInUser" contentId="main-content" [menuId]="EnumField.LEFT_MENU">
+
+		<ion-content class="themeSideMenu">
+
+			<!-- profile -->
+			<div class="profile">
+				<ion-avatar>
+					<img [src]="backendService.blackTheme? 'assets/defaults/profile-white.png' : 'assets/defaults/profile.png'" alt="">
+				</ion-avatar>
+
+				<p>{{backendService.signedInUser.name}}</p>
+			</div>
+
+
+			<!-- menu -->
+			<ion-list>
+				<ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+					<ion-item [routerDirection]="'root'" [routerLink]="[p.url]" routerLinkActive="active" detail="false" (click)="onHome()">
+						<ion-icon slot="start" [name]="p.icon" style="margin-right: 18px"></ion-icon>
+						<ion-label>{{p.title}}</ion-label>
+					</ion-item>
+				</ion-menu-toggle>
+
+
+				<!-- custom apps -->
+				<ion-menu-toggle auto-hide="false" *ngFor="let p of customApps">
+					<ion-item button (click)="onAppChangeCustom(p)" [ngClass]="{active: p.entityId == backendService.currentApp?.entityId}" detail="false">
+						<ion-icon slot="start" [name]="p.icon" style="margin-right: 18px"></ion-icon>
+						<ion-label>{{p.title}}</ion-label>
+					</ion-item>
+				</ion-menu-toggle>
+
+
+				<!-- dynamic apps -->
+				<ion-menu-toggle auto-hide="false" *ngFor="let p of backendService.apps">
+					<ion-item class="tIcon" button (click)="onAppChange(p)" [ngClass]="{active: p.entityId == backendService.currentApp?.entityId}" detail="false">
+						<i slot="start" [class]="p.icon" style="font-size: 20px; width: 24px; margin-right: 18px;"></i>
+						<ion-label>{{p.title}}</ion-label>
+					</ion-item>
+				</ion-menu-toggle>
+			</ion-list>
+
+
+			<!-- logout -->
+			<div class="logout-btn">
+				<ion-button (click)="onLogout()">
+					<ion-icon slot="start" name="log-out-outline"></ion-icon>
+					Logout
+				</ion-button>
+			</div>
+
+
+			<!-- theme -->
+			<div style="display: flex; justify-content: center">
+				<ion-item lines="none">
+					<ion-toggle slot="end" [(ngModel)]="backendService.blackTheme" (ionChange)="changeTheme($event.detail.checked)"></ion-toggle>
+				</ion-item>
+			</div>
+
+		</ion-content>
+
+	</ion-menu>
+
+
+	<ion-router-outlet id="main-content" [ngStyle]="{filter: showNoInternet ? 'blur(3px)' : 'none'}"></ion-router-outlet>
+
+
+	<!-- noInternet -->
+	<div *ngIf="showNoInternet" style="height: 100%;
+	    background: rgba(0, 0, 0, 0.5);
+	    z-index: 100;
+	    display: flex;
+	    justify-content: center;
+	    align-items: center;">
+
+		<ion-card>
+			<ion-card-header class="ion-margin">
+				<ion-card-title>No Internet Connection</ion-card-title>
+				<ion-card-subtitle>Check your network settings.</ion-card-subtitle>
+			</ion-card-header>
+		</ion-card>
+
+	</div>
+
+</ion-app>

@@ -1,0 +1,103 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-back-button [defaultHref]="routeBack"></ion-back-button>
+		</ion-buttons>
+
+
+		<ion-title>
+			{{backendService.currentPage.questionnaire.title}}
+		</ion-title>
+
+
+		<!-- show when addNew -->
+		<p *ngIf="!question.auid" class="ion-margin-end" slot="end">
+			Total Questions: {{backendService.currentPage.questionnaire.questions.length}}
+		</p>
+
+
+		<ion-buttons slot="end">
+			<!-- delete -->
+			<ion-button *ngIf="question.auid" (click)="deleteItem(question)">
+				<ion-icon name="trash" slot="icon-only"></ion-icon>
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+	<ion-card class="gCardAdmin">
+
+		<!-- header -->
+		<ion-card-header class="g-card-header">
+			<ion-card-title class="g-card-header-title">{{title}}</ion-card-title>
+		</ion-card-header>
+
+
+		<!-- questionnaire -->
+		<ion-card-content>
+
+			<!-- type -->
+			<ion-item class="gInput">
+				<ion-label position="floating">Type</ion-label>
+				<ion-select [disabled]="!!question.auid" [(ngModel)]="question.type" interface="popover" placeholder="Select Type">
+					<ion-select-option *ngFor="let item of EnumQuestion | keyvalue" [value]="item.value">
+						{{item.value | snakeToTitleCase}}
+					</ion-select-option>
+				</ion-select>
+			</ion-item>
+
+
+			<!-- questions -->
+			<ng-container [ngSwitch]="question.type">
+
+				<!-- slider -->
+				<comp-slider *ngSwitchCase="EnumQuestion.SLIDER"
+						   [data]="question"
+						   (eventSave)="onSubmit($event)">
+				</comp-slider>
+
+
+				<!-- text-input -->
+				<comp-text-input *ngSwitchCase="EnumQuestion.TEXT_INPUT"
+							  [data]="question"
+							  (eventSave)="onSubmit($event)">
+				</comp-text-input>
+
+
+				<!-- check -->
+				<comp-check *ngSwitchCase="EnumQuestion.MULTI_CHOICE"
+						  [data]="question"
+						  (eventSave)="onSubmit($event)">
+				</comp-check>
+
+
+				<!-- multi-text-input -->
+				<comp-multi-text-input *ngSwitchCase="EnumQuestion.MULTI_TEXT_INPUT"
+								   [data]="question"
+								   (eventSave)="onSubmit($event)">
+				</comp-multi-text-input>
+
+
+				<!-- radio -->
+				<comp-radio *ngSwitchCase="EnumQuestion.SINGLE_CHOICE"
+						  [data]="question"
+						  (eventSave)="onSubmit($event)">
+				</comp-radio>
+
+
+				<!-- textArea -->
+				<comp-text-area *ngSwitchCase="EnumQuestion.TEXT_AREA"
+							 [data]="question"
+							 (eventSave)="onSubmit($event)">
+				</comp-text-area>
+
+			</ng-container>
+
+		</ion-card-content>
+
+	</ion-card>
+
+</ion-content>

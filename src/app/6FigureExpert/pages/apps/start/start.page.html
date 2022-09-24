@@ -1,0 +1,169 @@
+<comp-header [title]="appName">
+
+	<!-- addSession -->
+	<ion-buttons slot="end">
+		<ion-button *ngIf="sessions.length" (click)="newSession()">
+			<ion-icon name="add" slot="icon-only"></ion-icon>
+		</ion-button>
+	</ion-buttons>
+
+</comp-header>
+
+
+<ion-content>
+
+	<ion-card>
+
+		<ion-card-content *ngIf="!sessions.length" class="sessionListGroup flexible">
+
+			<div class="ion-text-center">
+				<ion-button class="g-icon-btn" fill="clear" shape="round" (click)="newSession()">
+					<ion-icon slot="icon-only" icon="add"></ion-icon>
+				</ion-button>
+
+				<p>Would You Like To Start A New Report?</p>
+			</div>
+
+		</ion-card-content>
+
+
+		<ng-container *ngIf="sessions.length">
+
+			<!-- header -->
+			<ion-card-header class="questionnaireHeader">
+				<ion-card-title>Reports</ion-card-title>
+			</ion-card-header>
+
+
+			<!-- content -->
+			<ion-card-content class="sessionListGroup">
+				<ion-list>
+
+					<ion-item class="gListItem" button *ngFor="let itemSession of sessions; trackBy: dataManager.onTrackByEntityId; index as i;"
+							(click)="resumeSession(itemSession)">
+
+						<ion-label class="gListItemTitle">
+
+							<!-- count -->
+							<div>
+								<span class="gCount">#{{i + 1}}</span>
+							</div>
+
+
+							<!-- name -->
+							<p class="sessionName gBlack">{{itemSession.title}}
+								<!--<ion-note> - {{itemSession.created_at}}</ion-note>-->
+							</p>
+
+
+							<div>
+
+								<!-- createOn -->
+								<span class="timeAgo ion-margin-end">
+									<!--<ion-icon name="time-outline"></ion-icon>-->
+									Created On:
+									<ion-note>{{itemSession.created_at}}</ion-note>
+								</span>
+
+
+								<!-- lastUsed -->
+								<span class="timeAgo">
+									Last Used:
+									<ion-note>{{itemSession.updated_at | timeAgo}}</ion-note>
+								</span>
+
+							</div>
+
+						</ion-label>
+
+						<!-- export summery -->
+						<ion-button slot="end" fill="clear" class="gListItemExport" 
+						(click)="exportSummeryPdf(itemSession);$event.stopPropagation();">
+							<ion-icon name="save" slot="icon-only"></ion-icon>
+						</ion-button>
+
+
+						<!-- edit -->
+						<ion-button slot="end" fill="clear" class="gListItemEdit">
+							<ion-icon name="create" slot="icon-only"></ion-icon>
+						</ion-button>
+
+
+						<!-- remove -->
+						<ion-button slot="end" fill="clear" color="danger" class="gListItemDelete"
+								  (click)="removeSession(itemSession.entityId, i); $event.stopPropagation();">
+							<ion-icon name="trash" slot="icon-only"></ion-icon>
+						</ion-button>
+					</ion-item>
+				</ion-list>
+			</ion-card-content>
+
+		</ng-container>
+
+	</ion-card>
+
+
+</ion-content>
+
+<ng-container *ngIf="enumReportType">
+	<div class="reportContent" [hidden]="true">
+
+		<!-- reports -->
+		<ng-container *ngIf="page.report.formula.code as code">
+
+			<ng-container [ngSwitch]="code">
+
+				<!-- archetype -->
+				<comp-archetype *ngSwitchCase="EnumReport.ARCHETYPE.code"
+							 [title]="reportName"
+							 [report]="page.report"
+							 (eventHtml)="html=$event">
+				</comp-archetype>
+
+
+				<!-- driver/egotistic -->
+				<comp-egotistic *ngSwitchCase="EnumReport.DRIVER.code"
+							 [title]="reportName"
+							 [report]="page.report"
+							 (eventHtml)="html=$event">
+				</comp-egotistic>
+
+
+				<!-- maleFemale/traits -->
+				<comp-traits *ngSwitchCase="EnumReport.TRAITS.code"
+						   [title]="reportName"
+						   [report]="page.report"
+						   (eventHtml)="html=$event">
+				</comp-traits>
+
+
+				<!-- simple, emotions, gifts -->
+				<comp-simple *ngSwitchCase="(code == EnumReport.SIMPLE.code) || (code == EnumReport.NATURAL_GIFTS.code) || (code == EnumReport.EMOTIONS.code)
+				? code : ''"
+						   [title]="reportName"
+						   [report]="page.report"
+						   (eventHtml)="html=$event">
+				</comp-simple>
+
+
+				<!-- leadCalculator/financialGoal -->
+				<comp-financial-goal *ngSwitchCase="EnumReport.FINANCIAL_GOALS.code"
+								 [title]="reportName"
+								 [report]="page.report"
+								 (eventHtml)="html=$event">
+				</comp-financial-goal>
+
+
+				<!-- skills -->
+				<comp-skills *ngSwitchCase="EnumReport.SKILLS.code"
+						   [title]="reportName"
+						   [report]="page.report"
+						   (eventHtml)="html=$event">
+				</comp-skills>
+
+			</ng-container>
+
+		</ng-container>
+
+	</div>
+</ng-container>

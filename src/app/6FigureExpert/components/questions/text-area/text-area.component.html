@@ -1,0 +1,22 @@
+<!-- count -->
+<div>
+	<span class="gCount"><ng-content></ng-content></span>
+</div>
+
+
+<!-- title -->
+<p class="gQuestionTitle">
+	{{question.title}}
+</p>
+
+
+<!-- description -->
+<p class="gQuestionDescription" *ngIf="question.description">
+	{{question.description}}
+</p>
+
+
+<!-- item -->
+<ion-item class="gAnswerTextInput">
+	<ion-textarea autoGrow [(ngModel)]="question.text_area.answer" [placeholder]="question.text_area.placeholder || 'Write here'"></ion-textarea>
+</ion-item>

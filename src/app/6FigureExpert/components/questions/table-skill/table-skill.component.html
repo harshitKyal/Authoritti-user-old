@@ -1,0 +1,36 @@
+<ion-grid *ngIf="question.table_skill.rows.length">
+
+	<!-- header -->
+	<ion-row class="tableHeader">
+		<ion-col class="gQuestionTitle">Skills</ion-col>
+		<ion-col class="gQuestionTitle">Average Score</ion-col>
+		<ion-col *ngFor="let item of question.table_skill.columns" class="gQuestionTitle">
+			{{item}}
+		</ion-col>
+	</ion-row>
+
+
+	<!-- rows -->
+	<ng-container *ngIf="question.table_skill.rows.length">
+		<ion-radio-group *ngFor="let itemRow of question.table_skill.rows; index as i"
+					  [(ngModel)]="itemRow.answer" class="tableRows">
+
+			<ion-row class="ion-text-center ion-align-items-center">
+
+				<ion-col class="gTableCol sameHeight">{{itemRow.name}}</ion-col>
+				<ion-col class="rowAnswer sameHeight">{{itemRow.value}}</ion-col>
+				<ion-col *ngFor="let itemOption of question.table_skill.options; trackBy: dataManager.onTrackById;">
+
+					<ion-item lines="none">
+						<ion-label class="ion-text-center">
+							<ion-radio [value]="itemOption.auid"></ion-radio>
+						</ion-label>
+					</ion-item>
+
+				</ion-col>
+			</ion-row>
+
+		</ion-radio-group>
+	</ng-container>
+
+</ion-grid>

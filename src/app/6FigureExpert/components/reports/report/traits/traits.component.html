@@ -1,0 +1,33 @@
+<ion-grid class="gReportGrid">
+
+	<!-- title -->
+	<ion-row class="gReportTitle">
+		<ion-col>
+			<ion-label>{{title}}</ion-label>
+		</ion-col>
+	</ion-row>
+
+
+	<!-- body -->
+	<ng-container *ngFor="let itemReport of report.items">
+
+		<ion-row class="traitsCategory">
+			<ion-col>{{itemReport.key}}</ion-col>
+		</ion-row>
+
+
+		<ion-row *ngFor="let itemQuestionnaire of itemReport.value" class="traitsRow">
+
+			<ion-col size="12" class="traitsQuestionnaire">
+				<p>{{itemQuestionnaire.key}}</p>
+			</ion-col>
+			<ion-col size="12" sizeSm="6" sizeMd="4" sizeLg="3" sizeXl="2" class="traitsQuestionAnswer"
+				    *ngFor="let item of itemQuestionnaire.value">
+				{{item.key}} = {{item.value}}
+			</ion-col>
+
+		</ion-row>
+
+	</ng-container>
+
+</ion-grid>

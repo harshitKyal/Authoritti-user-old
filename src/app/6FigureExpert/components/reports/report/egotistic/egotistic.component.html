@@ -1,0 +1,34 @@
+<ion-grid class="gReportGrid">
+
+	<ng-container *ngFor="let itemReport of report.items">
+
+		<!-- title -->
+		<ion-row class="gReportTitle egotisticalHeader">
+			<ion-col>
+				{{itemReport.key}}
+			</ion-col>
+		</ion-row>
+
+
+		<!-- body -->
+		<ion-row>
+
+			<ng-container *ngFor="let item of itemReport.value">
+
+				<ion-col *ngIf="!mobile" [size]="df" [sizeSm]="sm" [sizeMd]="md" [sizeLg]="lg" [sizeXl]="xl" class="egotistical">
+					<ion-label>{{item.key}}<span>{{item.value}}%</span></ion-label>
+				</ion-col>
+
+
+				<ion-col *ngIf="mobile" size="12" class="egotistical egotisticalMobile">
+					<span>{{item.key}}</span>
+					<span>{{item.value}}%</span>
+				</ion-col>
+
+			</ng-container>
+
+		</ion-row>
+
+	</ng-container>
+
+</ion-grid>

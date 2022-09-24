@@ -1,0 +1,77 @@
+<ion-header>
+	<ion-toolbar>
+
+		<!-- back -->
+		<ion-buttons slot="start">
+			<ion-back-button [defaultHref]="routeBack"></ion-back-button>
+		</ion-buttons>
+
+
+		<!-- title -->
+		<ion-title>
+			{{appTitle}}
+		</ion-title>
+
+	</ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+	<ion-card class="gCardAdmin">
+
+		<!-- header -->
+		<ion-card-header class="g-card-header">
+
+			<!-- space -->
+			<ng-container *ngIf="userRoles?.can_edit">
+				<div class="g-card-header-space"></div>
+			</ng-container>
+
+
+			<!-- title -->
+			<ion-card-title class="g-card-header-title">{{page.type | snakeToTitleCase}}</ion-card-title>
+
+
+			<!-- edit -->
+			<ng-container *ngIf="userRoles?.can_edit">
+				<ion-button class="g-icon-btn" size="small" fill="clear" (click)="editPage(page.auid)">
+					<ion-icon name="create" slot="icon-only"></ion-icon>
+				</ion-button>
+			</ng-container>
+
+		</ion-card-header>
+
+
+		<!-- content -->
+		<ion-card-content>
+
+			<!-- title -->
+			<h3 class="gPageTitle">
+				{{page.intro.title}}
+			</h3>
+
+
+			<!-- active -->
+			<p class="gPageTitleDescription" [class.activeText]="page.active">
+				{{page.active ? 'Active' : 'Deactive'}}
+			</p>
+
+
+			<!-- link -->
+			<div *ngIf="page.intro.video_link" class="ion-margin-top">
+				<ion-icon name="link"></ion-icon>
+				{{page.intro.video_link}}
+			</div>
+
+
+			<!-- description -->
+			<p *ngIf="page.intro.description" class="gPageDescription">
+				{{page.intro.description}}
+			</p>
+
+		</ion-card-content>
+
+	</ion-card>
+
+</ion-content>

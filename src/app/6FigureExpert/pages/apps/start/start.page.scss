@@ -1,0 +1,33 @@
+ion-card {
+	margin: 0;
+	border-radius: 0;
+	box-shadow: none;
+}
+.questionnaireHeader {
+	padding: 32px 32px 16px;
+}
+.sessionListGroup {
+	padding: 0 0 14px 0;
+	max-height: calc(100vh - 128px);
+	overflow: auto;
+
+	p {
+		font-size: 16px;
+	}
+}
+.gCount {
+	display: inline-block;
+}
+.sessionName {
+	font-size: 18px;
+	margin-top: 16px;
+}
+.gListItemTitle {
+	margin-left: 16px;
+}
+.flexible {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: calc(100vh - 128px);
+}

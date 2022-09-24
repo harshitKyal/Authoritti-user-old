@@ -1,0 +1,30 @@
+<ion-list>
+
+	<!-- home -->
+	<ion-item button (click)="close('home')">
+		<ion-icon slot="start" name="home"></ion-icon>
+		Home
+	</ion-item>
+
+
+	<!-- reset -->
+	<ion-item *ngIf="backendService.curIntroPage?.intro.show_intro_icon" button (click)="close('playVideo')">
+		<ion-icon slot="start" name="play"></ion-icon>
+		Video
+	</ion-item>
+
+
+	<!-- reset -->
+	<ion-item *ngIf="pageType == EnumPage.QUESTIONNAIRE" button (click)="close('reset')">
+		<ion-icon slot="start" name="refresh"></ion-icon>
+		Reset
+	</ion-item>
+
+
+	<!-- save -->
+	<ion-item *ngIf="pageType == EnumPage.REPORT" button (click)="close('save')">
+		<ion-icon slot="start" name="save"></ion-icon>
+		Save
+	</ion-item>
+
+</ion-list>

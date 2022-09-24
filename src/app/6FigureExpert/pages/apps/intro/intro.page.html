@@ -1,0 +1,40 @@
+<comp-header [title]="appName"
+		   [pageType]="EnumPage.INTRO"
+		   [showHome]="true"
+		   [showMore]="true"
+		   (eventHome)="returnHome()">
+</comp-header>
+
+
+<ion-content>
+
+	<!-- progressBar -->
+	<ion-progress-bar [value]="progressValue"></ion-progress-bar>
+
+
+	<div class="title-description">
+
+		<!-- title -->
+		<h5 class="titleIntro">{{page.intro.title}}</h5>
+
+
+		<!-- description -->
+		<p class="descriptionIntro" *ngIf="page.intro.description">{{page.intro.description}}</p>
+
+	</div>
+
+
+	<!-- video -->
+	<div *ngIf="page.intro.video_link" class="frame">
+		<div class="video-container">
+			<div class="video" [id]="page.auid" [innerHtml]="iframeHTML"></div>
+		</div>
+	</div>
+
+
+</ion-content>
+
+
+<comp-footer (eventPrevious)="onPrevious()"
+		   (eventNext)="onNext($event)">
+</comp-footer>

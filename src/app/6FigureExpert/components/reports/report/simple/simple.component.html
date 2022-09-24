@@ -1,0 +1,290 @@
+<ion-grid class="gReportGrid">
+
+	<!-- app name -->
+	<ion-row class="gReportTitle">
+		<ion-col>
+			<ion-label>{{title}}</ion-label>
+		</ion-col>
+	</ion-row>
+
+
+	<!-- finalReport -->
+	<ng-container [ngTemplateOutlet]="finalReport"
+			    [ngTemplateOutletContext]="{data: report.items}">
+	</ng-container>
+
+</ion-grid>
+
+
+<!-- finalReport -->
+<ng-template #finalReport let-report="data">
+
+	<ng-container *ngFor="let itemReport of report">
+
+		<ng-container [ngSwitch]="itemReport.type">
+
+			<!-- category -->
+			<ng-container *ngSwitchCase="EnumType.Category">
+				<ng-container [ngTemplateOutlet]="category"
+						    [ngTemplateOutletContext]="{data: itemReport}">
+				</ng-container>
+			</ng-container>
+
+
+			<!-- group -->
+			<ng-container *ngSwitchCase="EnumType.Group">
+				<ng-container [ngTemplateOutlet]="group"
+						    [ngTemplateOutletContext]="{data: itemReport}">
+				</ng-container>
+			</ng-container>
+
+
+			<!-- slider -->
+			<ng-container *ngSwitchCase="EnumQuestion.SLIDER">
+				<ng-container [ngTemplateOutlet]="slider"
+						    [ngTemplateOutletContext]="{data: itemReport}">
+				</ng-container>
+			</ng-container>
+
+
+			<!-- textInput -->
+			<ng-container *ngSwitchCase="EnumQuestion.TEXT_INPUT">
+				<ng-container [ngTemplateOutlet]="textInput"
+						    [ngTemplateOutletContext]="{data: itemReport}">
+				</ng-container>
+			</ng-container>
+
+
+			<!-- check -->
+			<ng-container *ngSwitchCase="EnumQuestion.MULTI_CHOICE">
+				<ng-container [ngTemplateOutlet]="check"
+						    [ngTemplateOutletContext]="{data: itemReport}">
+				</ng-container>
+			</ng-container>
+
+
+			<!-- multiTextInput -->
+			<ng-container *ngSwitchCase="EnumQuestion.MULTI_TEXT_INPUT">
+				<ng-container [ngTemplateOutlet]="multiTextInput"
+						    [ngTemplateOutletContext]="{data: itemReport}">
+				</ng-container>
+			</ng-container>
+
+
+			<!-- radio -->
+			<ng-container *ngSwitchCase="EnumQuestion.SINGLE_CHOICE">
+				<ng-container [ngTemplateOutlet]="radio"
+						    [ngTemplateOutletContext]="{data: itemReport}">
+				</ng-container>
+			</ng-container>
+
+
+			<!-- textArea -->
+			<ng-container *ngSwitchCase="EnumQuestion.TEXT_AREA">
+				<ng-container [ngTemplateOutlet]="textArea"
+						    [ngTemplateOutletContext]="{data: itemReport}">
+				</ng-container>
+			</ng-container>
+
+
+			<!-- tableYesNo -->
+			<ng-container *ngSwitchCase="EnumDynamicQuestion.TABLE_YES_NO">
+				<ng-container [ngTemplateOutlet]="tableYesNo"
+						    [ngTemplateOutletContext]="{data: itemReport}">
+				</ng-container>
+			</ng-container>
+
+
+			<!-- tableDropDown -->
+			<ng-container *ngSwitchCase="EnumDynamicQuestion.TABLE_DROP_DOWN">
+				<ng-container [ngTemplateOutlet]="tableDropDown"
+						    [ngTemplateOutletContext]="{data: itemReport}">
+				</ng-container>
+			</ng-container>
+
+
+			<!-- checkGroup -->
+			<ng-container *ngSwitchCase="EnumDynamicQuestion.MULTI_CHOICE_GROUP">
+				<ng-container [ngTemplateOutlet]="checkGroup"
+						    [ngTemplateOutletContext]="{data: itemReport}">
+				</ng-container>
+			</ng-container>
+
+		</ng-container>
+
+	</ng-container>
+</ng-template>
+
+
+<!-- category -->
+<ng-template #category let-report="data">
+
+	<ion-row class="reportCategoryRow">
+		<ion-col>
+			<p class="reportQuestionCategory">{{report.key}}</p>
+		</ion-col>
+		<ion-col>
+			<p class="reportQuestionCategory">{{report.value}}</p>
+		</ion-col>
+	</ion-row>
+
+</ng-template>
+
+
+<!-- group -->
+<ng-template #group let-report="data">
+
+	<ion-row class="reportGroupRow">
+		<ion-col>
+			<ion-item-divider class="reportGroupHeader" color="light">
+				<ion-label>{{report.key}}</ion-label>
+			</ion-item-divider>
+		</ion-col>
+	</ion-row>
+
+</ng-template>
+
+
+<!-- slider -->
+<ng-template #slider let-report="data">
+
+	<ion-row class="reportSliderRow">
+		<ion-col *ngFor="let item of report.value" size="12" sizeSm="6" sizeMd="4" sizeLg="3" sizeXl="2" class="reportSliderCol">
+			{{item.key}} = {{item.value}}
+		</ion-col>
+	</ion-row>
+
+</ng-template>
+
+
+<!-- textInput -->
+<ng-template #textInput let-report="data">
+
+	<ion-row class="reportTextInputRow">
+		<ion-col size="12">
+			<p class="reportQuestion">Q: {{report.key}}</p>
+		</ion-col>
+		<ion-col size="12">
+			<p class="reportAnswer reportAnswerTextInput">{{report.value}}</p>
+		</ion-col>
+	</ion-row>
+
+</ng-template>
+
+
+<!-- check -->
+<ng-template #check let-report="data">
+
+	<ion-row class="reportCheckRow">
+		<ion-col size="12">
+			<p class="reportQuestion">Q: {{report.key}}</p>
+		</ion-col>
+		<ion-col *ngFor="let value of report.value" size="12" sizeSm="6" sizeMd="4" sizeLg="3" sizeXl="2">
+			<p class="reportAnswer reportAnswerCheck">{{value}}</p>
+		</ion-col>
+	</ion-row>
+
+</ng-template>
+
+
+<!-- multiTextInput -->
+<ng-template #multiTextInput let-report="data">
+
+	<ion-row class="reportMultiRow">
+		<ion-col size="12">
+			<p class="reportQuestion">Q: {{report.key}}</p>
+		</ion-col>
+		<ion-col size="12" *ngFor="let item of report.value">
+			<div class="reportMultiGroup">
+				<p class="reportQuestionMulti" *ngIf="item.key">{{item.key}}</p>
+				<p class="reportAnswerMulti">{{item.value}}</p>
+			</div>
+		</ion-col>
+	</ion-row>
+
+</ng-template>
+
+
+<!-- radio -->
+<ng-template #radio let-report="data">
+
+	<ion-row class="reportRadioRow">
+		<ion-col size="12">
+			<p class="reportQuestion">Q: {{report.key}}</p>
+		</ion-col>
+		<ion-col size="12">
+			<p class="reportAnswer">{{report.value}}</p>
+		</ion-col>
+	</ion-row>
+
+</ng-template>
+
+
+<!-- textArea -->
+<ng-template #textArea let-report="data">
+
+	<ion-row class="reportTextInputRow">
+		<ion-col size="12">
+			<p class="reportQuestion">Q: {{report.key}}</p>
+		</ion-col>
+		<ion-col size="12">
+			<p class="reportAnswer reportAnswerTextInput reportAnswerTextArea">{{report.value}}</p>
+		</ion-col>
+	</ion-row>
+
+</ng-template>
+
+
+<!-- tableYesNo -->
+<ng-template #tableYesNo let-report="data">
+
+	<div class="reportTableYesNoRow">
+		<ion-row class="ion-margin-bottom">
+			<ion-col *ngFor="let item of report.key">
+				<p class="reportQuestion reportQuestionTableYesNo">{{item}}</p>
+			</ion-col>
+		</ion-row>
+
+
+		<ion-row class="ion-margin-bottom" *ngFor="let itemValue of report.value">
+			<ion-col *ngFor="let value of itemValue">
+				<p class="reportAnswer reportAnswerTableYesNo">{{value}}</p>
+			</ion-col>
+		</ion-row>
+	</div>
+
+</ng-template>
+
+
+<!-- tableDropDown -->
+<ng-template #tableDropDown let-report="data">
+
+	<div class="reportTableYesNoRow">
+		<ion-row class="ion-margin-bottom">
+			<ion-col *ngFor="let item of report.key">
+				<p class="reportQuestion reportQuestionTableYesNo">{{item}}</p>
+			</ion-col>
+		</ion-row>
+
+
+		<ion-row class="ion-margin-bottom" *ngFor="let itemValue of report.value">
+			<ion-col *ngFor="let value of itemValue">
+				<p class="reportAnswer reportAnswerTableYesNo">{{value}}</p>
+			</ion-col>
+		</ion-row>
+	</div>
+
+</ng-template>
+
+
+<!-- checkGroup -->
+<ng-template #checkGroup let-report="data">
+
+	<!-- check -->
+	<ng-container *ngFor="let itemReport of report.value">
+		<ng-container [ngTemplateOutlet]="check"
+				    [ngTemplateOutletContext]="{data: itemReport}">
+		</ng-container>
+	</ng-container>
+
+</ng-template>

@@ -1,0 +1,51 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-menu-button></ion-menu-button>
+		</ion-buttons>
+
+
+		<ion-title>Users</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+	<ion-card class="gCardAdmin">
+
+		<!-- content -->
+		<ng-container *ngIf="(users$ | async) as users">
+
+			<ion-card-content class="noPaddingCard" *ngIf="users.length">
+
+				<ion-virtual-scroll [items]="users" approxItemHeight="81px">
+
+					<ion-item button class="gListItem" *virtualItem="let itemUser; index as i;"
+							(click)="navController.forwardWithUrl(EnumRoute.USER_EDIT, {id: itemUser.entityId, skipUrlCount: 1})">
+
+						<!-- count -->
+						<span slot="start" class="gListItemCount">{{i + 1}}.</span>
+
+
+						<!-- name -->
+						<ion-label class="gListItemTitle">
+							{{itemUser.name}}
+							<p>{{itemUser.username}}</p>
+						</ion-label>
+
+
+						<!-- active/deactive -->
+						<p slot="end" [class.activeText]="itemUser.active" class="gListItemDescription">{{itemUser.active ? 'Active' : 'Deactive'}}</p>
+
+					</ion-item>
+
+				</ion-virtual-scroll>
+
+			</ion-card-content>
+
+		</ng-container>
+
+	</ion-card>
+
+</ion-content>

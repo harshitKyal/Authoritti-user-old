@@ -1,0 +1,36 @@
+<form [formGroup]="formAddEdit">
+
+	<!-- title -->
+	<ion-item class="gInput">
+		<ion-label position="floating">Title *</ion-label>
+		<ion-textarea rows="2" [formControlName]="EnumField.TITLE"></ion-textarea>
+	</ion-item>
+
+
+	<!-- description -->
+	<ion-item class="gInput">
+		<ion-label position="floating">Description</ion-label>
+		<ion-textarea rows="5" [formControlName]="EnumField.DESCRIPTION"></ion-textarea>
+	</ion-item>
+
+
+	<!-- link -->
+	<ion-item class="gInput">
+		<ion-label position="floating">Video Link</ion-label>
+		<ion-input [formControlName]="EnumField.VIDEO_LINK"></ion-input>
+	</ion-item>
+
+
+	<!-- link -->
+	<ion-item class="gInput gInputCheck" lines="none">
+		<ion-label>Show Intro As Icon</ion-label>
+		<ion-checkbox [formControlName]="EnumField.SHOW_INTRO_ICON" slot="start"></ion-checkbox>
+	</ion-item>
+
+</form>
+
+
+<!-- save -->
+<div class="gBtnSave">
+	<ion-button [disabled]="formAddEdit.invalid" (click)="onSubmit(formAddEdit.value)">Save</ion-button>
+</div>

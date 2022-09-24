@@ -1,0 +1,134 @@
+<comp-header [title]="appName"
+		   [pageType]="EnumPage.QUESTIONNAIRE"
+		   [showHome]="true"
+		   [showMore]="true"
+		   [showReset]="true"
+		   (eventHome)="returnHome()"
+		   (event)="reset()">
+</comp-header>
+
+
+<ion-content>
+
+	<!-- progressBar -->
+	<ion-progress-bar [value]="progressValue"></ion-progress-bar>
+
+
+	<ion-card>
+
+		<!-- questionnaire -->
+		<ion-card-header #cardHeader class="questionnaireHeader">
+
+			<!-- title -->
+			<ion-card-title>{{page.questionnaire.title}}</ion-card-title>
+
+
+			<!-- description -->
+			<ion-card-subtitle *ngIf="page.questionnaire.description">{{page.questionnaire.description}}</ion-card-subtitle>
+
+		</ion-card-header>
+
+
+		<!-- questions -->
+		<ion-card-content #cardContent class="scrollCardQuestionnaire">
+
+			<ng-container *ngIf="page.questionnaire.multi_column_layout; else NonGrid">
+
+				<ion-grid>
+
+					<ion-row>
+
+						<ng-container *ngFor="let itemQuestion of page.questionnaire.questions; index as i"
+								    [ngSwitch]="itemQuestion.type">
+
+							<!-- slider -->
+							<ion-col *ngSwitchCase="EnumDynamicQuestion.SLIDER"
+								    size="12" sizeMd="6" sizeXl="4">
+
+								<comp-slider class="questionnaire"
+										   [data]="itemQuestion"
+										   [questionnaire]="page.questionnaire">
+									#{{i + 1}}
+								</comp-slider>
+
+							</ion-col>
+
+						</ng-container>
+
+					</ion-row>
+
+				</ion-grid>
+
+			</ng-container>
+
+
+			<!-- NonGrid -->
+			<ng-template #NonGrid>
+
+				<ng-container *ngFor="let itemQuestion of page.questionnaire.questions; index as i"
+						    [ngSwitch]="itemQuestion.type">
+
+					<!-- slider -->
+					<comp-slider class="questionnaire"
+							   *ngSwitchCase="EnumDynamicQuestion.SLIDER"
+							   [data]="itemQuestion"
+							   [questionnaire]="page.questionnaire">
+						#{{i + 1}}
+					</comp-slider>
+
+
+					<!-- tableYesNo -->
+					<comp-table-yes-no class="questionnaire"
+								    *ngSwitchCase="EnumDynamicQuestion.TABLE_YES_NO"
+								    [data]="itemQuestion">
+					</comp-table-yes-no>
+
+
+					<!-- tableDropDown -->
+					<comp-table-drop-down class="questionnaire"
+									  *ngSwitchCase="EnumDynamicQuestion.TABLE_DROP_DOWN"
+									  [data]="itemQuestion">
+					</comp-table-drop-down>
+
+
+					<!-- checkGroup -->
+					<comp-check-group class="questionnaire"
+								   *ngSwitchCase="EnumDynamicQuestion.MULTI_CHOICE_GROUP"
+								   [data]="itemQuestion">
+					</comp-check-group>
+
+
+					<!-- tableSkill -->
+					<comp-table-skill class="questionnaire"
+								   *ngSwitchCase="EnumDynamicQuestion.TABLE_SKILL"
+								   [data]="itemQuestion">
+					</comp-table-skill>
+
+
+					<!-- tableTrait -->
+					<comp-table-trait class="questionnaire"
+								   *ngSwitchCase="EnumDynamicQuestion.TABLE_TRAIT"
+								   [data]="itemQuestion">
+					</comp-table-trait>
+
+
+					<!-- tableSkillTrait -->
+					<comp-table-skill-trait class="questionnaire"
+									    *ngSwitchCase="EnumDynamicQuestion.TABLE_SKILL_TRAIT"
+									    [data]="itemQuestion">
+					</comp-table-skill-trait>
+
+				</ng-container>
+
+			</ng-template>
+
+		</ion-card-content>
+
+	</ion-card>
+
+</ion-content>
+
+
+<comp-footer (eventPrevious)="onPrevious()"
+		   (eventNext)="onNext($event)">
+</comp-footer>

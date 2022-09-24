@@ -1,0 +1,28 @@
+<form [formGroup]="formAddEdit" *ngIf="!reportExits">
+
+	<!-- reportBy -->
+	<ion-item class="gInput">
+		<ion-label position="floating">Report</ion-label>
+		<ion-select #inputReport [formControlName]="EnumField.FORMULA" [compareWith]="compareById" interface="popover" placeholder="Select Type">
+			<ion-select-option *ngFor="let item of EnumReport | keyvalue" [value]="item.value">
+				{{item?.value[EnumField.CODE] | snakeToTitleCase}}
+			</ion-select-option>
+		</ion-select>
+	</ion-item>
+
+
+	<!-- formulaDescription -->
+	<ion-item class="gInput">
+		<ion-label position="floating">Description</ion-label>
+		<ion-textarea autoGrow [value]="inputReport.value[EnumField.DESCRIPTION]" readonly></ion-textarea>
+	</ion-item>
+
+</form>
+
+
+<!-- save -->
+<div class="gBtnSave">
+	<ion-button [disabled]="formAddEdit.invalid || reportExits" (click)="onSubmit(formAddEdit.getRawValue())">
+		{{reportExits ? 'Report is already attached.' : 'Save'}}
+	</ion-button>
+</div>

@@ -1,0 +1,119 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-back-button [defaultHref]="routeBack"></ion-back-button>
+		</ion-buttons>
+
+
+		<ion-title>
+			{{title}}
+		</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+	<ion-card class="gCardAdmin">
+
+		<ion-card-content>
+
+			<form [formGroup]="formAddEdit">
+
+				<!-- active -->
+				<ion-item class="gInput gInputCheck" lines="none">
+					<ion-label>Active</ion-label>
+					<ion-checkbox [formControlName]="EnumField.ACTIVE" slot="start"></ion-checkbox>
+				</ion-item>
+
+
+				<!-- role -->
+				<ion-item class="gInput">
+					<ion-label position="floating">Role</ion-label>
+					<ion-input [formControlName]="EnumField.ROLE" readonly></ion-input>
+				</ion-item>
+
+
+				<!-- name -->
+				<ion-item class="gInput">
+					<ion-label position="floating">Name</ion-label>
+					<ion-input [formControlName]="EnumField.NAME" readonly></ion-input>
+				</ion-item>
+
+
+				<!-- email -->
+				<ion-item class="gInput">
+					<ion-label position="floating">Email</ion-label>
+					<ion-input [formControlName]="EnumField.EMAIL" readonly></ion-input>
+				</ion-item>
+
+			</form>
+
+
+			<!-- only for USER -->
+			<ng-container *ngIf="user.role == EnumRole.USER">
+
+				<h2 class="userRoles">User Roles</h2>
+
+				<ion-list>
+					<ng-container *ngFor="let itemApp of backendService.apps">
+
+						<ion-item *ngIf="itemApp.type == EnumApp.DYNAMIC">
+
+							<ion-icon slot="start" [name]="itemApp.icon" style="padding-bottom: 4px"></ion-icon>
+
+
+							<ion-label>
+								{{itemApp.title}}
+							</ion-label>
+
+
+							<ion-row slot="end" class="credentials">
+								<ion-col size="auto">
+									<ion-item>
+										<ion-checkbox [checked]="user.user_roles[itemApp.entityId]?.can_add"
+												    (ionChange)="changeUserRole($event.detail.checked, itemApp.entityId, EnumField.CAN_ADD)"></ion-checkbox>
+										<ion-label>Add</ion-label>
+									</ion-item>
+								</ion-col>
+								<ion-col size="auto">
+									<ion-item>
+										<ion-checkbox [checked]="user.user_roles[itemApp.entityId]?.can_edit"
+												    (ionChange)="changeUserRole($event.detail.checked, itemApp.entityId, EnumField.CAN_EDIT)"></ion-checkbox>
+										<ion-label>Edit</ion-label>
+									</ion-item>
+								</ion-col>
+								<ion-col size="auto">
+									<ion-item>
+										<ion-checkbox [checked]="user.user_roles[itemApp.entityId]?.can_delete"
+												    (ionChange)="changeUserRole($event.detail.checked, itemApp.entityId, EnumField.CAN_DELETE)"></ion-checkbox>
+										<ion-label>Delete</ion-label>
+									</ion-item>
+								</ion-col>
+								<ion-col size="auto">
+									<ion-item>
+										<ion-checkbox [checked]="user.user_roles[itemApp.entityId]?.can_reorder"
+												    (ionChange)="changeUserRole($event.detail.checked, itemApp.entityId, EnumField.CAN_REORDER)"></ion-checkbox>
+										<ion-label>Reorder</ion-label>
+									</ion-item>
+								</ion-col>
+							</ion-row>
+
+						</ion-item>
+
+					</ng-container>
+				</ion-list>
+
+
+				<!-- save -->
+				<div class="gBtnSave">
+					<ion-button (click)="onSubmit(formAddEdit.value)">Save</ion-button>
+				</div>
+
+			</ng-container>
+
+		</ion-card-content>
+
+	</ion-card>
+
+</ion-content>

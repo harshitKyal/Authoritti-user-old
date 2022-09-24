@@ -1,0 +1,67 @@
+<form [formGroup]="formAddEdit">
+
+	<!-- title -->
+	<ion-item class="gInput">
+		<ion-label position="floating">Title *</ion-label>
+		<ion-textarea rows="2" [formControlName]="EnumField.TITLE"></ion-textarea>
+	</ion-item>
+
+
+	<!-- description -->
+	<ion-item class="gInput">
+		<ion-label position="floating">Description</ion-label>
+		<ion-textarea rows="5" [formControlName]="EnumField.DESCRIPTION"></ion-textarea>
+	</ion-item>
+
+
+	<!-- check -->
+	<div [formGroupName]="EnumField.CHECK" class="gInput">
+
+		<!-- divide_in_groups -->
+		<ion-item class="gInput inputDivideInGroups">
+			<ion-checkbox [formControlName]="EnumField.DIVIDE_IN_GROUPS"></ion-checkbox>
+			<ion-label>Divide In Groups</ion-label>
+		</ion-item>
+
+
+		<!-- max_answer_count -->
+		<ion-item>
+			<ion-label position="floating">Max Answer Count *</ion-label>
+			<ion-input [formControlName]="EnumField.MAX_ANSWER_COUNT"></ion-input>
+		</ion-item>
+		<p class="hint">(Zero = No Limit)</p>
+
+	</div>
+
+</form>
+
+
+<!-- options -->
+<div>
+
+	<ion-item class="gInput">
+		<ion-label position="floating">Options</ion-label>
+		<ion-input placeholder="Type and press enter" ngModel #input="ngModel" (keyup.enter)="onAddOption(input.value); input.reset();"></ion-input>
+	</ion-item>
+
+
+	<ion-grid>
+		<ion-row>
+			<ion-col size="auto" *ngFor="let item of options; index as i; trackBy: dataManager.onTrackById;">
+
+				<ion-chip (click)="onRemoveOption(i)">
+					<ion-label>{{item.name}}</ion-label>
+					<ion-icon name="close-circle"></ion-icon>
+				</ion-chip>
+
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+
+</div>
+
+
+<!-- save -->
+<div class="gBtnSave">
+	<ion-button [disabled]="formAddEdit.invalid" (click)="onSubmit(formAddEdit.value)">Save</ion-button>
+</div>

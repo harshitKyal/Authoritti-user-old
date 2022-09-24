@@ -1,0 +1,25 @@
+.inputCategoryGroup,
+.inputGroup {
+	display: flex;
+	align-items: center;
+}
+
+
+
+
+
+.inputCategoryGroup .gInput,
+.inputGroup .gInput {
+	flex-grow: 1;
+}
+
+
+
+
+
+.inputCategoryError,
+.inputGroupError {
+	margin: 8px 0 0 16px;
+	color: red;
+	font-size: 12px;
+}

@@ -1,0 +1,24 @@
+.products {
+	margin-right: 2px;
+}
+.productItem {
+	--inner-padding-end: 0;
+	--padding-start: 8px;
+
+
+	ion-label:not(:first-of-type) {
+		margin-right: 14px;
+	}
+
+
+	ion-button {
+		margin: 4px 2px;
+	}
+}
+.productCount {
+	width: 22px;
+	max-width: 22px;
+	margin-left: 0;
+	margin-right: 20px;
+	font-size: 14px;
+}

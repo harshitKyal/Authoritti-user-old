@@ -1,0 +1,138 @@
+<comp-header [title]="appName"
+		   [pageType]="EnumPage.QUESTIONNAIRE"
+		   [showHome]="true"
+		   [showMore]="true"
+		   [showReset]="true"
+		   (eventHome)="returnHome()"
+		   (event)="reset()">
+</comp-header>
+
+
+<ion-content>
+
+	<!-- progressBar -->
+	<ion-progress-bar [value]="progressValue"></ion-progress-bar>
+
+
+	<ion-card>
+
+		<!-- questionnaire -->
+		<ion-card-header *ngIf="!page.questionnaire.hide_title" #cardHeader class="questionnaireHeader">
+
+			<!-- extraTitle -->
+			<p *ngIf="page.questionnaire.extraTitle" class="extraTitle">
+				{{page.questionnaire.extraTitle}}
+			</p>
+
+
+			<!-- title -->
+			<ion-card-title>{{page.questionnaire.title}}</ion-card-title>
+
+
+			<!-- description -->
+			<ion-card-subtitle *ngIf="page.questionnaire.description">{{page.questionnaire.description}}</ion-card-subtitle>
+
+		</ion-card-header>
+
+
+		<!-- questions -->
+		<ion-card-content #cardContent class="scrollCardQuestionnaire">
+
+			<ng-container *ngIf="page.questionnaire.multi_column_layout; else NonGrid">
+
+				<ion-grid>
+
+					<ion-row>
+
+						<ng-container *ngFor="let itemQuestion of page.questionnaire.questions; index as i"
+								    [ngSwitch]="itemQuestion.type">
+
+							<!-- slider -->
+							<ion-col *ngSwitchCase="EnumQuestion.SLIDER"
+								    size="12" sizeMd="6" sizeXl="4">
+
+								<comp-slider class="questionnaire"
+										   [data]="itemQuestion"
+										   [questionnaire]="page.questionnaire">
+									#{{i + 1}}
+								</comp-slider>
+
+							</ion-col>
+
+						</ng-container>
+
+					</ion-row>
+
+				</ion-grid>
+
+			</ng-container>
+
+
+			<!-- NonGrid -->
+			<ng-template #NonGrid>
+
+				<ng-container *ngFor="let itemQuestion of page.questionnaire.questions; index as i"
+						    [ngSwitch]="itemQuestion.type">
+
+					<!-- slider -->
+					<comp-slider class="questionnaire"
+							   *ngSwitchCase="EnumQuestion.SLIDER"
+							   [data]="itemQuestion"
+							   [questionnaire]="page.questionnaire">
+						#{{i + 1}}
+					</comp-slider>
+
+
+					<!-- text-input -->
+					<comp-text-input class="questionnaire"
+								  *ngSwitchCase="EnumQuestion.TEXT_INPUT"
+								  [data]="itemQuestion">
+						#{{i + 1}}
+					</comp-text-input>
+
+
+					<!-- check -->
+					<comp-check class="questionnaire"
+							  *ngSwitchCase="EnumQuestion.MULTI_CHOICE"
+							  [data]="itemQuestion">
+						#{{i + 1}}
+					</comp-check>
+
+
+					<!-- multi-text-input -->
+					<comp-multi-text-input class="questionnaire"
+									   *ngSwitchCase="EnumQuestion.MULTI_TEXT_INPUT"
+									   [data]="itemQuestion">
+						#{{i + 1}}
+					</comp-multi-text-input>
+
+
+					<!-- radio -->
+					<comp-radio class="questionnaire"
+							  *ngSwitchCase="EnumQuestion.SINGLE_CHOICE"
+							  [data]="itemQuestion">
+						#{{i + 1}}
+					</comp-radio>
+
+
+					<!-- textArea -->
+					<comp-text-area class="questionnaire"
+								 *ngSwitchCase="EnumQuestion.TEXT_AREA"
+								 [data]="itemQuestion">
+						#{{i + 1}}
+					</comp-text-area>
+
+				</ng-container>
+
+			</ng-template>
+
+		</ion-card-content>
+
+	</ion-card>
+
+</ion-content>
+
+
+<comp-footer (eventPrevious)="onPrevious()"
+		   (eventNext)="onNext($event)">
+</comp-footer>

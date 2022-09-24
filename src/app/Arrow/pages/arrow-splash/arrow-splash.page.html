@@ -1,0 +1,11 @@
+<ion-content>
+
+
+	<div *ngIf="backendService.hasEnvironments">
+		<ion-button *ngFor="let item of backendService.environments" (click)="onInitBackend(item)">
+			{{item.name}}
+		</ion-button>
+	</div>
+
+
+</ion-content>

@@ -1,0 +1,7 @@
+ion-toolbar {
+	--color: white;
+	--background: var(--backgroundRed);
+}
+ion-buttons[slot="end"] {
+	margin-right: 4px;
+}

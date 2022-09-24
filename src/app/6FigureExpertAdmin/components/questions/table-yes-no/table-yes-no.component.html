@@ -1,0 +1,38 @@
+<form [formGroup]="formAddEdit">
+
+	<!-- source -->
+	<ion-item class="gInput">
+		<ion-label position="floating">Source *</ion-label>
+		<ion-select [formControlName]="EnumField.SOURCE" interface="popover" placeholder="Select Type">
+			<ion-select-option [value]="EnumSource.SLIDER">
+				{{EnumSource.SLIDER | snakeToTitleCase}}
+			</ion-select-option>
+		</ion-select>
+	</ion-item>
+
+
+	<!-- tableYesNo -->
+	<div [formGroupName]="EnumField.TABLE_YES_NO">
+
+		<!-- placeholder -->
+		<ion-item class="gInput">
+			<ion-label position="floating">1st Column Title</ion-label>
+			<ion-input [formControlName]="EnumField.YES_LABEL"></ion-input>
+		</ion-item>
+
+
+		<!-- placeholder -->
+		<ion-item class="gInput">
+			<ion-label position="floating">2nd Column Title</ion-label>
+			<ion-input [formControlName]="EnumField.NO_LABEL"></ion-input>
+		</ion-item>
+
+	</div>
+
+</form>
+
+
+<!-- save -->
+<div class="gBtnSave">
+	<ion-button [disabled]="formAddEdit.invalid" (click)="onSubmit(formAddEdit.value)">Save</ion-button>
+</div>

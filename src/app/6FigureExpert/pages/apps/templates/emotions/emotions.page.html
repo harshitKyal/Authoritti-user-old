@@ -1,0 +1,56 @@
+<comp-header [title]="appName"
+		   [pageType]="EnumPage.QUESTIONNAIRE"
+		   [showHome]="true"
+		   [showMore]="true"
+		   [showReset]="true"
+		   (eventHome)="returnHome()"
+		   (event)="reset()">
+</comp-header>
+
+
+<ion-content>
+
+	<!-- progressBar -->
+	<ion-progress-bar [value]="progressValue"></ion-progress-bar>
+
+
+	<!-- title -->
+	<p class="gQuestionTitle">
+		If You Already Know Your Trigger Emotion Select From Below
+	</p>
+
+
+	<ion-grid>
+		<ion-radio-group [(ngModel)]="inputEmotion">
+			<ion-row>
+				<ion-col size="auto" *ngFor="let item of emotions">
+					<ion-item lines="none">
+						<ion-radio slot="start" [value]="item"></ion-radio>
+						<ion-label>{{item}}</ion-label>
+					</ion-item>
+				</ion-col>
+			</ion-row>
+		</ion-radio-group>
+	</ion-grid>
+
+
+	<!-- selectEmotion -->
+	<div class="btnEmotion">
+		<ion-button [disabled]="!inputEmotion" class="gBtnNext" (click)="selectEmotion()">
+			Select {{inputEmotion}}
+		</ion-button>
+	</div>
+
+
+	<!-- title -->
+	<p class="gQuestionTitle">
+		Or Skip To Know Your Triggerer Emotion
+	</p>
+
+
+	<!-- calculateEmotion -->
+	<div class="btnEmotion">
+		<ion-button class="gBtnNext" (click)="calculateEmotion()">Calculate</ion-button>
+	</div>
+
+</ion-content>

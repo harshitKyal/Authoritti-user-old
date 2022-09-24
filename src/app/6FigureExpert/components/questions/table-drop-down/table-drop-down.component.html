@@ -1,0 +1,29 @@
+<ion-grid *ngIf="question.table_drop_down.rows.length">
+
+	<!-- header -->
+	<ion-row>
+		<ion-col *ngFor="let item of question.table_drop_down.columns" class="gQuestionTitle">
+			{{item}}
+		</ion-col>
+	</ion-row>
+
+
+	<!-- rows -->
+	<ion-row *ngFor="let itemRow of question.table_drop_down.rows" class="ion-text-center ion-align-items-center">
+
+		<ion-col class="gTableCol">{{itemRow.name}}</ion-col>
+		<ion-col class="gTableCol">{{itemRow.value}}</ion-col>
+		<ion-col>
+			<ion-item lines="none">
+				<ion-select [(ngModel)]="itemRow.answer" interface="popover" class="selectTable" (ionChange)="onChange(itemRow.auid, $event.detail.value, question.table_drop_down.rows)">
+					<ion-select-option *ngFor="let itemOption of question.table_drop_down.options; trackBy: dataManager.onTrackById;"
+								    [value]="itemOption.auid">
+						{{itemOption.name}}
+					</ion-select-option>
+				</ion-select>
+			</ion-item>
+		</ion-col>
+
+	</ion-row>
+
+</ion-grid>

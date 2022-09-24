@@ -1,0 +1,37 @@
+<!-- count -->
+<div>
+	<span class="gCount"><ng-content></ng-content></span>
+</div>
+
+
+<!-- title -->
+<p class="gQuestionTitle">
+	{{question.title}}
+</p>
+
+
+<!-- description -->
+<p class="gQuestionDescription" *ngIf="question.description">
+	{{question.description}}
+</p>
+
+
+<ion-grid>
+	<ion-row>
+		<ng-container *ngFor="let item of question.check.options; index as i; first as isFirst; trackBy: dataManager.onTrackById;">
+
+			<ion-col size="auto">
+				<ion-item lines="none">
+					<ion-checkbox slot="start" [value]="item.auid" [checked]="question.check.answers[item.auid]"
+							    (ionChange)="onChange($event.detail)"></ion-checkbox>
+					<ion-label>{{item.name}}</ion-label>
+				</ion-item>
+			</ion-col>
+
+
+			<ion-col *ngIf="question.check.divide_in_groups && !isFirst && i % 25 == 0" size="12" style="height: 64px;">
+			</ion-col>
+
+		</ng-container>
+	</ion-row>
+</ion-grid>

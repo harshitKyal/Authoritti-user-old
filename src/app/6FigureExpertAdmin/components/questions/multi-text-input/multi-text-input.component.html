@@ -1,0 +1,63 @@
+<form [formGroup]="formAddEdit">
+
+     <!-- title -->
+     <ion-item class="gInput">
+          <ion-label position="floating">Title *</ion-label>
+          <ion-textarea rows="2" [formControlName]="EnumField.TITLE"></ion-textarea>
+     </ion-item>
+
+
+     <!-- description -->
+     <ion-item class="gInput">
+          <ion-label position="floating">Description</ion-label>
+          <ion-textarea rows="5" [formControlName]="EnumField.DESCRIPTION"></ion-textarea>
+     </ion-item>
+
+
+     <!-- inputs -->
+     <ng-container [formArrayName]="EnumField.INPUTS" *ngFor="let item of inputs; index as i; last as isLast;">
+
+          <div [formGroupName]="i" class="gInput multi-input">
+
+               <!-- input-count -->
+               <h3>Ans {{i + 1}}</h3>
+
+
+               <!-- auid -->
+               <ion-item style="display: none">
+                    <ion-label position="floating">AUID</ion-label>
+                    <ion-input [formControlName]="EnumField.AUID" readonly></ion-input>
+               </ion-item>
+
+
+               <!-- placeholder -->
+               <ion-item>
+                    <ion-label position="floating">Placeholder/Hint</ion-label>
+                    <ion-input [formControlName]="EnumField.PLACEHOLDER"></ion-input>
+               </ion-item>
+
+
+               <div>
+                    <!-- add-input -->
+                    <ion-button *ngIf="isLast" class="gBtnAdd" slot="icon-only" fill="clear" (click)="onAddInput()">
+                         <ion-icon name="add-circle-outline"></ion-icon>
+                    </ion-button>
+
+
+                    <!-- remove-input -->
+                    <ion-button *ngIf="inputs.length > 1" slot="icon-only" fill="clear" color="danger" (click)="onRemoveInput(i)">
+                         <ion-icon name="remove-circle-outline"></ion-icon>
+                    </ion-button>
+               </div>
+
+          </div>
+
+     </ng-container>
+
+</form>
+
+
+<!-- save -->
+<div class="gBtnSave">
+     <ion-button [disabled]="formAddEdit.invalid" (click)="onSubmit(formAddEdit.getRawValue())">Save</ion-button>
+</div>

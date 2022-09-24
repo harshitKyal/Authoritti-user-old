@@ -1,0 +1,92 @@
+<comp-header title="Report"
+		   [pageType]="page ? EnumPage.REPORT : null"
+		   [showHome]="true"
+		   [showMore]="true"
+		   [showSave]="!!page"
+		   (eventHome)="returnHome()"
+		   (event)="printReport()">
+</comp-header>
+
+
+<ion-content>
+
+	<div *ngIf="!page; else ShowReport" class="no-report">
+		<h2>Report Not Available</h2>
+	</div>
+
+
+	<ng-template #ShowReport>
+
+		<div class="reportContent">
+
+			<!-- header -->
+			<comp-report-header>
+			</comp-report-header>
+
+
+			<!-- reports -->
+			<ng-container *ngIf="page.report.formula.code as code">
+
+				<ng-container [ngSwitch]="code">
+
+					<!-- archetype -->
+					<comp-archetype *ngSwitchCase="EnumReport.ARCHETYPE.code"
+								 [title]="reportName"
+								 [report]="page.report"
+								 (eventHtml)="html=$event">
+					</comp-archetype>
+
+
+					<!-- driver/egotistic -->
+					<comp-egotistic *ngSwitchCase="EnumReport.DRIVER.code"
+								 [title]="reportName"
+								 [report]="page.report"
+								 (eventHtml)="html=$event">
+					</comp-egotistic>
+
+
+					<!-- maleFemale/traits -->
+					<comp-traits *ngSwitchCase="EnumReport.TRAITS.code"
+							   [title]="reportName"
+							   [report]="page.report"
+							   (eventHtml)="html=$event">
+					</comp-traits>
+
+
+					<!-- simple, emotions, gifts -->
+					<comp-simple *ngSwitchCase="(code == EnumReport.SIMPLE.code) || (code == EnumReport.NATURAL_GIFTS.code) || (code == EnumReport.EMOTIONS.code)
+					? code : ''"
+							   [title]="reportName"
+							   [report]="page.report"
+							   (eventHtml)="html=$event">
+					</comp-simple>
+
+
+					<!-- leadCalculator/financialGoal -->
+					<comp-financial-goal *ngSwitchCase="EnumReport.FINANCIAL_GOALS.code"
+									 [title]="reportName"
+									 [report]="page.report"
+									 (eventHtml)="html=$event">
+					</comp-financial-goal>
+
+
+					<!-- skills -->
+					<comp-skills *ngSwitchCase="EnumReport.SKILLS.code"
+							   [title]="reportName"
+							   [report]="page.report"
+							   (eventHtml)="html=$event">
+					</comp-skills>
+
+				</ng-container>
+
+			</ng-container>
+
+		</div>
+
+	</ng-template>
+
+</ion-content>
+
+
+<comp-footer (eventPrevious)="onPrevious()">
+</comp-footer>

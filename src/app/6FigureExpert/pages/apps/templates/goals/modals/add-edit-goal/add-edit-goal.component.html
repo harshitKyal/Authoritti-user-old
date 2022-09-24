@@ -1,0 +1,37 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-title class="ion-text-center">
+			{{title}} Goal
+		</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+	<ion-list class="ion-margin">
+
+		<ion-item class="gListItem">
+			<ion-label position="floating">Title *</ion-label>
+			<ion-input [(ngModel)]="inputName" required></ion-input>
+		</ion-item>
+
+
+		<ion-item class="gListItem">
+			<ion-label position="floating">Description</ion-label>
+			<ion-textarea rows="8" [(ngModel)]="inputDescription"></ion-textarea>
+		</ion-item>
+
+	</ion-list>
+
+</ion-content>
+
+
+<ion-footer>
+	<ion-toolbar class="ion-text-center themeFooter">
+		<div class="gBtnSave">
+			<ion-button (click)="save()" [disabled]="inputName | nullOrEmpty">Save</ion-button>
+			<ion-button (click)="cancel()">Cancel</ion-button>
+		</div>
+	</ion-toolbar>
+</ion-footer>

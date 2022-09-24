@@ -1,0 +1,70 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-menu-button></ion-menu-button>
+		</ion-buttons>
+
+
+		<ion-title>{{backendService.currentApp.title}}</ion-title>
+
+
+		<ion-buttons slot="end">
+			<!-- add -->
+			<ion-button (click)="navController.forwardWithUrl(EnumRoute.GROUP_ADD, {skipUrlCount: 1})">
+				<ion-icon name="add" slot="icon-only"></ion-icon>
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+	<ion-card class="gCardAdmin">
+
+		<!-- header -->
+		<ion-card-header class="g-card-header">
+			<ion-card-title class="g-card-header-title">Groups</ion-card-title>
+		</ion-card-header>
+
+
+		<!-- content -->
+		<ion-card-content *ngIf="backendService.groups.length;">
+
+			<ion-list>
+
+				<ion-item button class="gListItem" *ngFor="let itemGroup of backendService.groups; trackBy: dataManager.onTrackById; index as i;"
+						(click)="navController.forwardWithUrl(EnumRoute.GROUP_EDIT, {id: itemGroup.auid, skipUrlCount: 1})">
+
+					<!-- count -->
+					<span slot="start" class="gListItemCount">{{i + 1}}.</span>
+
+
+					<!-- title, description -->
+					<ion-label class="gListItemTitle">
+						{{itemGroup.name}}
+						<p class="gListItemDescription">{{itemGroup.title}}</p>
+					</ion-label>
+
+
+					<!-- edit -->
+					<ion-button slot="end" fill="clear" class="gListItemEdit"
+							  (click)="navController.forwardWithUrl(EnumRoute.GROUP_EDIT, {id: itemGroup.auid, skipUrlCount: 1}); $event.stopPropagation();">
+						<ion-icon name="create" slot="icon-only"></ion-icon>
+					</ion-button>
+
+
+					<!-- delete -->
+					<ion-button slot="end" color="danger" fill="clear" class="gListItemDelete" (click)="deleteItem(itemGroup); $event.stopPropagation();">
+						<ion-icon name="trash" slot="icon-only"></ion-icon>
+					</ion-button>
+
+				</ion-item>
+
+			</ion-list>
+
+		</ion-card-content>
+
+	</ion-card>
+
+</ion-content>

@@ -1,0 +1,41 @@
+<ion-grid *ngIf="question.table_trait.rows.length">
+
+	<!-- header -->
+	<ion-row class="tableHeader">
+		<ion-col class="gQuestionTitle">Traits</ion-col>
+		<ion-col class="gQuestionTitle">Average Score</ion-col>
+		<ion-col *ngFor="let item of question.table_trait.columns" class="gQuestionTitle">
+			{{item.name}}
+		</ion-col>
+	</ion-row>
+
+
+	<!-- rows -->
+	<ng-container *ngIf="question.table_trait.rows.length">
+
+		<ion-row class="ion-text-center ion-align-items-center tableRows"
+			    *ngFor="let itemRow of question.table_trait.rows; index as i">
+
+			<ion-col class="gTableCol sameHeight">{{itemRow.name}}</ion-col>
+			<ion-col class="rowAnswer sameHeight">{{itemRow.value}}</ion-col>
+			<ion-col *ngFor="let itemOption of option5; trackBy: dataManager.onTrackById;">
+				<ion-item lines="none">
+					<ion-label class="ion-text-center">
+						<ion-checkbox [checked]="itemRow.answer==itemOption.auid"
+								    (ionChange)="onChange($event.detail.checked, itemOption.auid, itemRow, 'answer')"></ion-checkbox>
+					</ion-label>
+				</ion-item>
+			</ion-col>
+			<ion-col *ngFor="let itemOption of option2; trackBy: dataManager.onTrackById;">
+				<ion-item lines="none">
+					<ion-label class="ion-text-center">
+						<ion-checkbox [checked]="itemRow.answerPositive==itemOption.auid"
+								    (ionChange)="onChange($event.detail.checked, itemOption.auid, itemRow, 'answerPositive')"></ion-checkbox>
+					</ion-label>
+				</ion-item>
+			</ion-col>
+		</ion-row>
+
+	</ng-container>
+
+</ion-grid>

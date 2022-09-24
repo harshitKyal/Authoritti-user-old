@@ -1,0 +1,88 @@
+<comp-header [title]="appName"
+		   [pageType]="EnumPage.QUESTIONNAIRE"
+		   [showHome]="true"
+		   [showMore]="true"
+		   (eventHome)="returnHome()">
+</comp-header>
+
+
+<ion-content>
+
+	<!-- progressBar -->
+	<ion-progress-bar [value]="progressValue"></ion-progress-bar>
+
+
+	<ion-grid class="financialGoalGrid ion-margin-bottom">
+
+		<!-- title -->
+		<ion-row>
+			<ion-col>
+				<h4 class="gColorHeading gFinancialTitle ion-text-center">Summary</h4>
+			</ion-col>
+		</ion-row>
+
+
+		<!-- reportType -->
+		<ion-row class="ion-margin-top ion-justify-content-center">
+			<ion-col class="reportType">
+				<ion-item>
+					<ion-label class="titleIntro">Generate Report</ion-label>
+					<ion-select interface="popover" [(ngModel)]="reportType" (ionChange)="changeReport($event.detail.value)">
+						<ion-select-option *ngFor="let item of reports; index as i;" [value]="i">
+							{{item}}
+						</ion-select-option>
+					</ion-select>
+				</ion-item>
+			</ion-col>
+		</ion-row>
+
+
+		<!-- report -->
+		<ng-container *ngFor="let itemReport of report">
+
+			<!-- title -->
+			<ion-row class="title">
+				<ion-col>
+					<h5 class="gColorHeading gFinancialTitle ion-text-center">{{itemReport.key}}</h5>
+				</ion-col>
+			</ion-row>
+
+
+			<!-- headers -->
+			<ion-row>
+				<ion-col><h5 class="ion-no-margin gColorHeading ion-text-center">Product/Service</h5></ion-col>
+				<ion-col><h5 class="ion-no-margin gColorHeading ion-text-center">Dollar Value</h5></ion-col>
+				<ion-col><h5 class="ion-no-margin gColorHeading ion-text-center">Total Sales</h5></ion-col>
+				<ion-col><h5 class="ion-no-margin gColorHeading ion-text-center">Generated Sales</h5></ion-col>
+				<ion-col><h5 class="ion-no-margin gColorHeading ion-text-center">Close Rate</h5></ion-col>
+				<ion-col><h5 class="ion-no-margin gColorHeading ion-text-center">Sales Required</h5></ion-col>
+				<ion-col><h5 class="ion-no-margin gColorHeading ion-text-center">Qualified Leads Required</h5></ion-col>
+			</ion-row>
+
+
+			<!-- body -->
+			<ion-row *ngFor="let item of itemReport.value">
+				<ion-col>
+					<ion-item class="ion-no-padding" style="--inner-padding-end: 0;">
+						<ion-label class="ion-text-center">{{item.name}}</ion-label>
+						<ion-label class="ion-text-center">{{item.dollarValue}}</ion-label>
+						<ion-label class="ion-text-center">{{item.saleValue}}</ion-label>
+						<ion-label class="ion-text-center">{{item.generatedSales}}</ion-label>
+						<ion-label class="ion-text-center">{{item.closeRate}}</ion-label>
+						<ion-label class="ion-text-center">{{item.salesRequired}}</ion-label>
+						<ion-label class="ion-text-center">{{item.leadsRequired}}</ion-label>
+					</ion-item>
+				</ion-col>
+			</ion-row>
+
+		</ng-container>
+
+	</ion-grid>
+
+</ion-content>
+
+
+<comp-footer (eventPrevious)="onPrevious()"
+		   (eventNext)="onNext($event)">
+</comp-footer>
+

@@ -1,0 +1,66 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-back-button [defaultHref]="routeBack"></ion-back-button>
+		</ion-buttons>
+
+
+		<ion-title>
+			{{backendService.currentApp.title}}
+		</ion-title>
+
+
+		<ion-buttons slot="end">
+			<!-- delete -->
+			<ion-button *ngIf="category.auid" (click)="deleteItem(category)">
+				<ion-icon name="trash" slot="icon-only"></ion-icon>
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+	<form [formGroup]="formAddEdit">
+
+		<ion-card class="gCardAdmin">
+
+			<!-- header -->
+			<ion-card-header class="g-card-header">
+				<ion-card-title class="g-card-header-title">{{title}}</ion-card-title>
+			</ion-card-header>
+
+
+			<ion-card-content>
+
+				<ion-list>
+
+					<!-- title -->
+					<ion-item class="gInput">
+						<ion-label position="floating">Name *</ion-label>
+						<ion-input [formControlName]="EnumField.TITLE"></ion-input>
+					</ion-item>
+
+
+					<!-- description -->
+					<ion-item class="gInput">
+						<ion-label position="floating">Description</ion-label>
+						<ion-textarea rows="5" [formControlName]="EnumField.DESCRIPTION"></ion-textarea>
+					</ion-item>
+
+				</ion-list>
+
+
+				<!-- save -->
+				<div class="gBtnSave">
+					<ion-button [disabled]="formAddEdit.invalid" (click)="onSubmit(formAddEdit.value)">Save</ion-button>
+				</div>
+
+			</ion-card-content>
+
+		</ion-card>
+
+	</form>
+
+</ion-content>

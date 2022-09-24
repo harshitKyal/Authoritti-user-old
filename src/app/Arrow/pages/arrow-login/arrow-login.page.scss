@@ -1,0 +1,108 @@
+.logo {
+	text-align: center;
+
+	img {
+		max-width: 500px;
+	}
+}
+
+.loginMain {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.loginCard {
+	margin: 0;
+	width: 100%;
+	max-width: 450px;
+	box-shadow: none;
+}
+.loginCardHeader {
+	padding: 24px 0 8px;
+
+
+	ion-card-title {
+		text-align: center;
+		font-size: 24px;
+	}
+}
+.rememberMe {
+	//--background: transparent;
+	//color: white;
+	//border: 0;
+	//--background-focused: #262626;
+	--border-style: none;
+	//--inner-padding-end: 8px;
+
+
+	ion-checkbox {
+		--size: 16px;
+		//	--checkmark-color: white;
+		//	--background-checked: #FFBD00;
+		//	--border-color-checked: #FFBD00;
+		//	--border-color: white;
+	}
+
+
+	ion-label {
+		margin-left: 12px;
+		//	color: #737373;
+	}
+}
+.forgot-password {
+	margin-left: 16px;
+
+	&:hover {
+		cursor: pointer;
+		text-decoration-line: underline;
+	}
+}
+.login {
+	margin-top: 16px;
+	text-align: center;
+
+
+	ion-button {
+		width: 100px;
+		height: 40px;
+	}
+}
+.signUp {
+	margin-top: 32px;
+}
+.loginSignUp {
+	text-align: center;
+	margin: 16px 0;
+
+
+	&:hover {
+		cursor: pointer;
+		text-decoration-line: underline;
+	}
+
+
+	span {
+		font-weight: 500;
+	}
+}
+.passwordIcon {
+	width: 24px;
+	height: 24px;
+	padding: 16px;
+
+
+	&:hover {
+		cursor: pointer;
+	}
+}
+.rippleParent {
+	height: 50px;
+	position: relative;
+	overflow: hidden;
+
+	display: flex;
+	align-items: center;
+	margin-left: 16px;
+}

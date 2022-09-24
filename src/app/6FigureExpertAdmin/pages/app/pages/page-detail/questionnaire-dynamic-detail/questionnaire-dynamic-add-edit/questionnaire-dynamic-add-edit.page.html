@@ -1,0 +1,117 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-buttons slot="start">
+			<ion-back-button [defaultHref]="routeBack"></ion-back-button>
+		</ion-buttons>
+
+
+		<ion-title>
+			{{page.questionnaire.title}}
+		</ion-title>
+
+
+		<ion-buttons slot="end">
+			<!-- delete -->
+			<ion-button *ngIf="template.auid" (click)="deleteItem(template)">
+				<ion-icon name="trash" slot="icon-only"></ion-icon>
+			</ion-button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+	<ion-card class="gCardAdmin">
+
+		<!-- header -->
+		<ion-card-header class="g-card-header">
+			<ion-card-title class="g-card-header-title">{{title}}</ion-card-title>
+		</ion-card-header>
+
+
+		<!-- dynamicQuestionnaire -->
+		<ion-card-content *ngIf="canAddQuestion else ShowError">
+
+			<!-- type -->
+			<ion-item class="gInput">
+				<ion-label position="floating">Type</ion-label>
+				<ion-select [disabled]="!!template.auid" [(ngModel)]="template.type" interface="popover" placeholder="Select Type">
+					<ion-select-option *ngFor="let item of EnumDynamicQuestion | keyvalue" [value]="item.value">
+						{{item.value | snakeToTitleCase}}
+					</ion-select-option>
+				</ion-select>
+			</ion-item>
+
+
+			<!-- questions -->
+			<ng-container [ngSwitch]="template.type">
+
+				<!-- slider -->
+				<comp-dynamic-slider *ngSwitchCase="EnumDynamicQuestion.SLIDER"
+								 [data]="template"
+								 (eventSave)="onSubmit($event)">
+				</comp-dynamic-slider>
+
+
+				<!--	 tableYesNo -->
+				<comp-table-yes-no *ngSwitchCase="EnumDynamicQuestion.TABLE_YES_NO"
+							    [data]="template"
+							    (eventSave)="onSubmit($event)">
+				</comp-table-yes-no>
+
+
+				<!-- tableDropDown -->
+				<comp-table-drop-down *ngSwitchCase="EnumDynamicQuestion.TABLE_DROP_DOWN"
+								  [data]="template"
+								  (eventSave)="onSubmit($event)">
+				</comp-table-drop-down>
+
+
+				<!-- checkGroup -->
+				<comp-check-group *ngSwitchCase="EnumDynamicQuestion.MULTI_CHOICE_GROUP"
+							   [data]="template"
+							   (eventSave)="onSubmit($event)">
+				</comp-check-group>
+
+
+				<!-- tableSkill -->
+				<comp-table-skill *ngSwitchCase="EnumDynamicQuestion.TABLE_SKILL"
+							   [data]="template"
+							   (eventSave)="onSubmit($event)">
+				</comp-table-skill>
+
+
+				<!-- tableTrait -->
+				<comp-table-trait *ngSwitchCase="EnumDynamicQuestion.TABLE_TRAIT"
+							   [data]="template"
+							   (eventSave)="onSubmit($event)">
+				</comp-table-trait>
+
+
+				<!-- tableSkillTrait -->
+				<comp-table-skill-trait *ngSwitchCase="EnumDynamicQuestion.TABLE_SKILL_TRAIT"
+								    [data]="template"
+								    (eventSave)="onSubmit($event)">
+				</comp-table-skill-trait>
+
+			</ng-container>
+
+		</ion-card-content>
+
+
+		<!-- error -->
+		<ng-template #ShowError>
+			<ion-card-content>
+
+				<p class="gPageDescription">There can be only 1 TemplateQuestion.
+					<br>
+					This question will act as a template to create further questions at ClientSide.
+				</p>
+
+			</ion-card-content>
+		</ng-template>
+
+	</ion-card>
+
+</ion-content>

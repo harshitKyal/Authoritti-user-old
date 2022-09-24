@@ -1,0 +1,8 @@
+<ng-container *ngFor="let itemQuestion of question.check_group.questions; index as i">
+
+	<comp-check class="questionnaire"
+			  [data]="itemQuestion">
+		#{{i + 1}}
+	</comp-check>
+
+</ng-container>

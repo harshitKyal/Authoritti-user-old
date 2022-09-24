@@ -1,0 +1,136 @@
+ion-grid {
+	padding: 0;
+}
+.help {
+	--padding-start: 6px;
+	--padding-end: 6px;
+	font-size: 16px;
+	height: 32px;
+	margin: 0;
+}
+.mainTitle {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 32px 32px 16px;
+
+
+	span {
+		font-size: 22px;
+		font-weight: 500;
+		flex-grow: 1;
+		text-align: center;
+		padding-left: 41px;
+	}
+}
+.subCard {
+	margin: 0 8px;
+}
+.subCardHeader {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background: #f3f3f3;
+	height: 76px;
+
+
+	p {
+		margin: 0;
+	}
+	ion-card-title {
+		text-align: center;
+		color: #737373;
+		margin: 0;
+	}
+	ion-button {
+		--padding-start: 8px;
+		--padding-end: 8px;
+	}
+}
+.cardContent {
+	padding: 0;
+	height: calc(100vh - 290px);
+	overflow: auto;
+
+	ion-list {
+		padding: 4px 0;
+	}
+	p {
+		font-size: 16px;
+	}
+}
+.itemCount {
+	font-size: 14px;
+	width: 28px;
+	text-align: right;
+}
+.itemTitle {
+	font-size: 18px;
+	margin-top: 16px;
+}
+.listItemSolution {
+	--min-height: 82px;
+	--padding-start: 12px;
+	--ripple-color: transparent;
+}
+.listItemSolution.highlight {
+	--background-hover: transparent;
+}
+.listSteps {
+	height: calc(100% - 50px);
+	overflow: auto;
+	margin-bottom: 16px;
+}
+.highlight {
+	--background: #fee2ed;
+}
+.selectedIcon {
+	margin-left: 8px;
+	margin-right: 24px;
+	width: 28px;
+}
+.goalFooter {
+	--background: #f3f3f3;
+	color: #737373;
+
+
+	p {
+		font-size: 16px;
+		margin-right: 32px;
+		text-align: right;
+	}
+}
+.listItemStep {
+	margin-bottom: 2px;
+	border-left: 3px solid #00b0f0;
+}
+.highlightOutcome {
+	border-left: 3px solid #92d050;
+}
+.colorInfo {
+	display: flex;
+	justify-content: center;
+
+
+	p {
+		margin: 0 16px;
+	}
+	span {
+		display: inline-block;
+		width: 12px;
+		height: 12px;
+		margin-right: 4px;
+	}
+
+
+	p:nth-child(1) {
+		span {
+			background: #00b0f0;
+		}
+	}
+	p:nth-child(2) {
+		span {
+			background: #92d050;
+		}
+	}
+}

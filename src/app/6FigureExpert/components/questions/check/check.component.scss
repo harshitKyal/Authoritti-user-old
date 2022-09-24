@@ -1,0 +1,23 @@
+ion-row {
+	align-items: center;
+}
+ion-grid,
+ion-col {
+	padding-left: 0;
+}
+
+
+ion-item {
+	font-size: 14px;
+
+
+	ion-checkbox {
+		margin-right: 12px;
+	}
+
+
+	ion-label {
+		width: 150px;
+		white-space: normal;
+	}
+}

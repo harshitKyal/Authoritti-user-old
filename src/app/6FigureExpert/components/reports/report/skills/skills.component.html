@@ -1,0 +1,93 @@
+<ion-grid class="gReportGrid">
+
+	<!-- title -->
+	<ion-row class="gReportTitle">
+		<ion-col>
+			<ion-label>{{title}}</ion-label>
+		</ion-col>
+	</ion-row>
+
+
+	<!-- body -->
+	<ng-container *ngFor="let itemReport of report.items"
+			    [ngSwitch]="itemReport.type">
+
+		<!-- category -->
+		<ion-row *ngSwitchCase="EnumType.Category" class="reportCategoryRow">
+			<ion-col>
+				<p class="reportQuestionCategory">{{itemReport.key}}</p>
+			</ion-col>
+			<ion-col>
+				<p class="reportQuestionCategory">{{itemReport.value}}</p>
+			</ion-col>
+		</ion-row>
+
+
+		<!-- group -->
+		<ion-row *ngSwitchCase="EnumType.Group" class="reportGroupRow">
+			<ion-col>
+				<ion-item-divider class="reportGroupHeader" color="light">
+					<ion-label>{{itemReport.key}}</ion-label>
+				</ion-item-divider>
+			</ion-col>
+		</ion-row>
+
+
+		<!-- tableSkillTrait -->
+		<ng-container *ngSwitchCase="EnumDynamicQuestion.TABLE_SKILL_TRAIT">
+
+			<!-- rows -->
+			<ng-container *ngFor="let itemQuestionnaire of itemReport.value">
+
+				<!-- columns -->
+				<ion-row class="tableHeader">
+					<ion-col *ngFor="let key of itemQuestionnaire.key" class="gQuestionTitle">{{key}}</ion-col>
+				</ion-row>
+
+
+				<!-- values -->
+				<ion-row *ngFor="let item of itemQuestionnaire.value; last as isLast"
+					    class="ion-text-center ion-align-items-center tableRows"
+					    [style.margin-bottom]="isLast ? '24px' : '0'">
+
+					<ion-col *ngFor="let value of item" class="rowAnswer sameHeight">{{value}}</ion-col>
+
+				</ion-row>
+
+			</ng-container>
+
+		</ng-container>
+
+
+		<!-- goal -->
+		<ng-container *ngSwitchCase="EnumTemplate.GOALS">
+
+			<!-- rows -->
+			<ng-container *ngFor="let itemGoal of itemReport.value">
+
+				<!-- name -->
+				<ion-row class="tableHeader">
+					<ion-col class="goal">
+						<p>Goal: {{itemGoal.name}}</p>
+					</ion-col>
+				</ion-row>
+
+
+				<!-- steps -->
+				<ion-row *ngFor="let itemStep of itemGoal.steps;" class="steps" [ngClass]="{'stepsOutcome': itemStep.type == 'outcome'}">
+
+					<ion-col class="rowAnswer sameHeight">
+						<p class="stepType">{{itemStep.type}}</p>
+						<p class="stepName">{{itemStep.name}}</p>
+						<p class="stepDescription">{{itemStep.description}}</p>
+					</ion-col>
+
+				</ion-row>
+
+			</ng-container>
+
+		</ng-container>
+
+	</ng-container>
+
+</ion-grid>

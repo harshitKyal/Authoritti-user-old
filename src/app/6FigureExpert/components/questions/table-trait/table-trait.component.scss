@@ -1,0 +1,51 @@
+.gQuestionTitle {
+	text-align: center;
+	margin: 0 !important;
+	color: white;
+}
+ion-checkbox {
+	margin: 0;
+	display: inline-block;
+	vertical-align: middle;
+}
+.rowAnswer {
+	font-size: 16px;
+}
+.sameHeight {
+	padding: 18px 5px;
+}
+.tableHeader {
+	background-color: #EF5EA7;
+	color: white;
+
+
+	ion-col {
+		padding: 18px 5px;
+		font-size: 20px !important;
+	}
+}
+.tableRows:nth-child(even) {
+	background: #F8D1E0;
+}
+.tableRows:nth-child(odd) {
+	background: #FBE9F0;
+}
+.tableRows ion-col:first-child {
+	background-color: #EF5EA7;
+	color: white;
+}
+.tableRows {
+	border-top: white solid 1px;
+}
+.tableRows ion-col:nth-child(2),
+.tableRows ion-col:nth-child(1n+8) {
+	background-color: #DDDDDD;
+	color: black;
+}
+.tableRows ion-col:not(:last-child) {
+	border-right: white solid 1px;
+}
+.tableRows ion-item {
+	--background: transparent;
+	--ripple-color: var(--backgroundRed);
+}

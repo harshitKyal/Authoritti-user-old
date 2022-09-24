@@ -1,0 +1,35 @@
+<comp-header [title]="appName"
+		   [pageType]="EnumPage.QUESTIONNAIRE"
+		   [showHome]="true"
+		   [showMore]="true"
+		   [showReset]="true"
+		   (eventHome)="returnHome()"
+		   (event)="reset()">
+</comp-header>
+
+
+<ion-content>
+
+	<!-- progressBar -->
+	<ion-progress-bar [value]="progressValue"></ion-progress-bar>
+
+
+	<div class="main">
+
+		<h4 class="gColorHeading gFinancialTitle">Your Annual Financial Goal</h4>
+
+		<div>
+			<ion-item class="gAnswerTextInput gTextInput">
+				<ion-input [(ngModel)]="financialGoal.annual_goal" (keypress)="filterNumericInput($event)" placeholder="Enter Your Annual Goal Here"></ion-input>
+			</ion-item>
+		</div>
+
+	</div>
+
+</ion-content>
+
+
+<comp-footer (eventPrevious)="onPrevious()"
+		   (eventNext)="onNext($event)"
+		   [disable]="!financialGoal.annual_goal">
+</comp-footer>
